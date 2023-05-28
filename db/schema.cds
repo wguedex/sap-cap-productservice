@@ -53,10 +53,10 @@ entity Emails {
 
 entity Products {
     key ID               : UUID;
-        name             : String;
+        name             : String default 'NoName';
         description      : String;
         ImageURL         : String;
-        ReleaseDate      : DateTime;
+        ReleaseDate      : DateTime default $now;
         DiscontinuedDate : DateTime;
         Price            : Dec;
         Height           : type of Price; //Decimal(16, 2);

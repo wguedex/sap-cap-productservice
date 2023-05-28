@@ -1,4 +1,6 @@
 namespace com.productsrv;
+ 
+define type name : String(50);
 
 entity Products {
     key ID               : UUID;

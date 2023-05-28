@@ -1,6 +1,14 @@
 namespace com.productsrv;
- 
+
 define type name : String(50);
+
+type Address {
+    Street     : String;
+    City       : String;
+    State      : String(2);
+    PostalCode : String(5);
+    Country    : String(3);
+}
 
 entity Products {
     key ID               : UUID;
@@ -17,7 +25,7 @@ entity Products {
 
 }
 
-entity Supplier {
+entity Suppliers {
     key ID         : UUID;
         Name       : String;
         Street     : String;
@@ -28,6 +36,31 @@ entity Supplier {
         Email      : String;
         Phone      : String;
         Fax        : String;
+}
+
+entity Suppliers_01 {
+    key ID      : UUID;
+        Name    : String;
+        Address : Address;
+        Email   : String;
+        Phone   : String;
+        Fax     : String;
+}
+
+
+entity Suppliers_02 {
+    key ID      : UUID;
+        Name    : String;
+        Address : {
+            Street     : String;
+            City       : String;
+            State      : String(2);
+            PostalCode : String(5);
+            Country    : String(3);
+        };
+        Email   : String;
+        Phone   : String;
+        Fax     : String;
 }
 
 entity Category {

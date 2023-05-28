@@ -1,6 +1,7 @@
 namespace com.productsrv;
 
-define type name       : String(50);
+define type name       : String(50); 
+define type Dec       : Decimal(16, 2); 
 
 type Address {
     Street     : String;
@@ -36,8 +37,8 @@ entity Products {
         ImageURL         : String;
         ReleaseDate      : DateTime;
         DiscontinuedDate : DateTime;
-        Price            : Decimal(16, 2);
-        Height           : Decimal(16, 2);
+        Price            : Dec;
+        Height           : type of Price;//Decimal(16, 2);
         Width            : Decimal(16, 2);
         Depth            : Decimal(16, 2);
         Quantity         : Decimal(16, 2);
@@ -46,7 +47,7 @@ entity Products {
 
 entity Suppliers {
     key ID         : UUID;
-        Name       : String;
+        Name       : type of Products:name;//String;
         Street     : String;
         City       : String;
         State      : String(2);

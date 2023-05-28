@@ -53,7 +53,7 @@ entity Emails {
 
 entity Products {
     key ID               : UUID;
-        name             : String default 'NoName';
+        name             : String default 'NoName' not null;
         description      : String;
         ImageURL         : String;
         ReleaseDate      : DateTime default $now;

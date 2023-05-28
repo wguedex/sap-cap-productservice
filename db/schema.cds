@@ -1,6 +1,6 @@
 namespace com.productsrv;
 
-define type name : String(50);
+define type name       : String(50);
 
 type Address {
     Street     : String;
@@ -8,6 +8,25 @@ type Address {
     State      : String(2);
     PostalCode : String(5);
     Country    : String(3);
+}
+
+type EmailAddresses_01 : array of {
+    kind  : String;
+    email : String;
+}
+
+type EmailAddresses_02 {
+    kind  : String;
+    email : String;
+}
+
+entity : Emails {
+    email_01 :      EmailAddresses_01;
+    email_02 : many EmailAddresses_02;
+    email_03 : many {
+        kind  : String;
+        email : String;
+    }
 }
 
 entity Products {

@@ -20,7 +20,7 @@ type EmailAddresses_02 {
     email : String;
 }
 
-entity : Emails {
+entity  Emails {
     email_01 :      EmailAddresses_01;
     email_02 : many EmailAddresses_02;
     email_03 : many {

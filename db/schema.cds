@@ -1,7 +1,28 @@
 namespace com.productsrv;
 
-define type name       : String(50); 
-define type Dec       : Decimal(16, 2); 
+define type name       : String(50);
+define type Dec        : Decimal(16, 2);
+
+type Gender            : String enum {
+    male;
+    female;
+};
+
+entity Order {
+    clientGender : Gender;
+    status       : Integer enum {
+        submitted = 1;
+        fulfiller = 2;
+        shipped   = 3;
+        cancel    = -1;
+
+    };
+    priority : String @assert.range enum {
+        high;
+        medium;
+        low;
+    };
+}
 
 type Address {
     Street     : String;
@@ -21,7 +42,7 @@ type EmailAddresses_02 {
     email : String;
 }
 
-entity  Emails {
+entity Emails {
     email_01 :      EmailAddresses_01;
     email_02 : many EmailAddresses_02;
     email_03 : many {
@@ -38,7 +59,7 @@ entity Products {
         ReleaseDate      : DateTime;
         DiscontinuedDate : DateTime;
         Price            : Dec;
-        Height           : type of Price;//Decimal(16, 2);
+        Height           : type of Price; //Decimal(16, 2);
         Width            : Decimal(16, 2);
         Depth            : Decimal(16, 2);
         Quantity         : Decimal(16, 2);
@@ -47,7 +68,7 @@ entity Products {
 
 entity Suppliers {
     key ID         : UUID;
-        Name       : type of Products:name;//String;
+        Name       : type of Products : name; //String;
         Street     : String;
         City       : String;
         State      : String(2);

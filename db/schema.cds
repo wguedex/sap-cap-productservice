@@ -1,7 +1,7 @@
-namespace productsrv;
+namespace com.productsrv;
 
 entity Products {
-    key ID               : Integer;
+    key ID               : UUID;
         name             : String;
         description      : String;
         ImageURL         : String;

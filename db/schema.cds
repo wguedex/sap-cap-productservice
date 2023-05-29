@@ -69,20 +69,19 @@ entity Products {
         ReleaseDate      : DateTime default $now;
         DiscontinuedDate : DateTime;
         Price            : Dec;
-        Height           : type of Price; //Decimal(16, 2);
+        Height           : type of Price;
         Width            : Decimal(16, 2);
         Depth            : Decimal(16, 2);
         Quantity         : Decimal(16, 2);
-        // Supplier_ID      : UUID;
-        Supplier       : Association to one Suppliers;
-                            //    on ToSupplier.ID = Supplier_ID;
-        // UnitOfMeasure_ID : String(2);
-        UnitOfMeasures  : Association to UnitOfMeasures;
-                            //    on TounitOfMeasure.ID = UnitOfMeasure_ID;
-
-        currency : Association to  currencies;
-        DimensionUnits : Association to DimensionUnits;
-        Category : Association to Categories;
+        Supplier         : Association to one Suppliers;
+        UnitOfMeasures   : Association to UnitOfMeasures;
+        currency         : Association to Currencies;
+        DimensionUnits   : Association to DimensionUnits;
+        Category         : Association to Categories;
+        toSalesData      : Association to many SalesData
+                               on toSalesData.Product = $self;
+        Reviews          : Association to many ProductReview
+                               on Reviews.Product = $self;
 
 }
 
@@ -97,6 +96,8 @@ entity Suppliers {
         Email      : String;
         Phone      : String;
         Fax        : String;
+        Product    : Association to many Products
+                         on Product.Supplier = $self;
 }
 
 entity Suppliers_01 {
@@ -134,7 +135,7 @@ entity stockAvailability {
         Description : String;
 }
 
-entity currencies {
+entity Currencies {
     key ID          : String(3);
         Description : String;
 }
@@ -156,19 +157,19 @@ entity Months {
 }
 
 entity ProductReview {
-    key ID : UUID;
+    key ID      : UUID;
         Name    : String;
         Rating  : Integer;
         Comment : String;
         Product : Association to Products;
 }
 
-entity salesData {
-    key ID           : UUID;
-        DeliveryDate : DateTime;
-        Revenue      : Decimal(16, 2);
-        Product: Association to Products;
-        Currency : Association to currencies;
+entity SalesData {
+    key ID            : UUID;
+        DeliveryDate  : DateTime;
+        Revenue       : Decimal(16, 2);
+        Product       : Association to Products;
+        Currency      : Association to Currencies;
         DeliveryMonth : Association to Months;
 }
 

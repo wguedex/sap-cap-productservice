@@ -81,8 +81,8 @@ entity Emails {
 }
 
 entity Products : cuid, managed {
-    name             : String default 'NoName' not null;
-    description      : String;
+    name             : localized String default 'NoName' not null;
+    description      : localized String;
     ImageURL         : String;
     ReleaseDate      : DateTime default $now;
     DiscontinuedDate : DateTime;
@@ -142,33 +142,34 @@ entity Suppliers_02 : cuid {
 
 entity Categories {
     key ID   : String(1);
-        Name : String
+        Name : localized String
 }
 
 entity stockAvailability {
     key ID          : Integer;
-        Description : String;
+        Description : localized String;
+        Product     : Association to Products;
 }
 
 entity Currencies {
     key ID          : String(3);
-        Description : String;
+        Description : localized String;
 }
 
 entity UnitOfMeasures {
     key ID          : String(2);
-        Description : String;
+        Description : localized String;
 }
 
 entity DimensionUnits {
     key ID          : String(2);
-        Description : String;
+        Description : localized String;
 }
 
 entity Months {
     key ID               : String(2);
-        Description      : String;
-        ShortDescription : String(3);
+        Description      : localized String;
+        ShortDescription : localized String(3);
 }
 
 entity ProductReview : cuid, managed {

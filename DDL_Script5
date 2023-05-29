@@ -1,0 +1,1042 @@
+
+CREATE TABLE com_productsrv_car (
+  ID NVARCHAR(36) NOT NULL,
+  name NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Order (
+  clientGender NVARCHAR(5000),
+  status INTEGER,
+  priority NVARCHAR(5000)
+);
+
+CREATE TABLE com_productsrv_Orders (
+  ID NVARCHAR(36) NOT NULL,
+  Date DATE_TEXT,
+  Customer NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_OrderItems (
+  ID NVARCHAR(36) NOT NULL,
+  Order_ID NVARCHAR(36),
+  Product_ID NVARCHAR(36),
+  Quantity INTEGER,
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Emails (
+  email_01 NCLOB,
+  email_02 NCLOB,
+  email_03 NCLOB
+);
+
+CREATE TABLE com_productsrv_Products (
+  ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP_TEXT,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP_TEXT,
+  modifiedBy NVARCHAR(255),
+  name NVARCHAR(5000) NOT NULL DEFAULT 'NoName',
+  description NVARCHAR(5000),
+  ImageURL NVARCHAR(5000),
+  ReleaseDate TIMESTAMP_TEXT DEFAULT CURRENT_TIMESTAMP,
+  DiscontinuedDate TIMESTAMP_TEXT,
+  Price DECIMAL(16, 2),
+  Height DECIMAL(16, 2),
+  Width DECIMAL(16, 2),
+  Depth DECIMAL(16, 2),
+  Quantity DECIMAL(16, 2),
+  Supplier_ID NVARCHAR(36),
+  UnitOfMeasures_ID NVARCHAR(2),
+  currency_ID NVARCHAR(3),
+  DimensionUnits_ID NVARCHAR(2),
+  Category_ID NVARCHAR(1),
+  priceCondition NVARCHAR(2),
+  priceDetermination NVARCHAR(3),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Suppliers (
+  ID NVARCHAR(36) NOT NULL,
+  Name NVARCHAR(5000) NOT NULL DEFAULT 'NoName',
+  Street NVARCHAR(5000),
+  City NVARCHAR(5000),
+  State NVARCHAR(2),
+  PostalCode NVARCHAR(5),
+  Country NVARCHAR(3),
+  Email NVARCHAR(5000),
+  Phone NVARCHAR(5000),
+  Fax NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Suppliers_01 (
+  ID NVARCHAR(36) NOT NULL,
+  Name NVARCHAR(5000),
+  Address_Street NVARCHAR(5000),
+  Address_City NVARCHAR(5000),
+  Address_State NVARCHAR(2),
+  Address_PostalCode NVARCHAR(5),
+  Address_Country NVARCHAR(3),
+  Email NVARCHAR(5000),
+  Phone NVARCHAR(5000),
+  Fax NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Suppliers_02 (
+  ID NVARCHAR(36) NOT NULL,
+  Name NVARCHAR(5000),
+  Address_Street NVARCHAR(5000),
+  Address_City NVARCHAR(5000),
+  Address_State NVARCHAR(2),
+  Address_PostalCode NVARCHAR(5),
+  Address_Country NVARCHAR(3),
+  Email NVARCHAR(5000),
+  Phone NVARCHAR(5000),
+  Fax NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Categories (
+  ID NVARCHAR(1) NOT NULL,
+  Name NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_stockAvailability (
+  ID INTEGER NOT NULL,
+  Description NVARCHAR(5000),
+  Product_ID NVARCHAR(36),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Currencies (
+  ID NVARCHAR(3) NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_UnitOfMeasures (
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_DimensionUnits (
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Months (
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(5000),
+  ShortDescription NVARCHAR(3),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_ProductReview (
+  ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP_TEXT,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP_TEXT,
+  modifiedBy NVARCHAR(255),
+  Name NVARCHAR(5000),
+  Rating INTEGER,
+  Comment NVARCHAR(5000),
+  Product_ID NVARCHAR(36),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_SalesData (
+  ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP_TEXT,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP_TEXT,
+  modifiedBy NVARCHAR(255),
+  DeliveryDate TIMESTAMP_TEXT,
+  Revenue DECIMAL(16, 2),
+  Product_ID NVARCHAR(36),
+  Currency_ID NVARCHAR(3),
+  DeliveryMonth_ID NVARCHAR(2),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Course (
+  ID NVARCHAR(36) NOT NULL,
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Student (
+  ID NVARCHAR(36) NOT NULL,
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_StudentCourse (
+  ID NVARCHAR(36) NOT NULL,
+  Student_ID NVARCHAR(36),
+  Course_ID NVARCHAR(36),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Products_texts (
+  locale NVARCHAR(14) NOT NULL,
+  ID NVARCHAR(36) NOT NULL,
+  name NVARCHAR(5000) NOT NULL DEFAULT 'NoName',
+  description NVARCHAR(5000),
+  PRIMARY KEY(locale, ID)
+);
+
+CREATE TABLE com_productsrv_Categories_texts (
+  locale NVARCHAR(14) NOT NULL,
+  ID NVARCHAR(1) NOT NULL,
+  Name NVARCHAR(5000),
+  PRIMARY KEY(locale, ID)
+);
+
+CREATE TABLE com_productsrv_stockAvailability_texts (
+  locale NVARCHAR(14) NOT NULL,
+  ID INTEGER NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(locale, ID)
+);
+
+CREATE TABLE com_productsrv_Currencies_texts (
+  locale NVARCHAR(14) NOT NULL,
+  ID NVARCHAR(3) NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(locale, ID)
+);
+
+CREATE TABLE com_productsrv_UnitOfMeasures_texts (
+  locale NVARCHAR(14) NOT NULL,
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(locale, ID)
+);
+
+CREATE TABLE com_productsrv_DimensionUnits_texts (
+  locale NVARCHAR(14) NOT NULL,
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(locale, ID)
+);
+
+CREATE TABLE com_productsrv_Months_texts (
+  locale NVARCHAR(14) NOT NULL,
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(5000),
+  ShortDescription NVARCHAR(3),
+  PRIMARY KEY(locale, ID)
+);
+
+CREATE TABLE com_productsrv_Suppliers_texts (
+  locale NVARCHAR(14) NOT NULL,
+  ID NVARCHAR(36) NOT NULL,
+  Name NVARCHAR(5000) NOT NULL DEFAULT 'NoName',
+  PRIMARY KEY(locale, ID)
+);
+
+CREATE VIEW com_productsrv_SelProducts AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM com_productsrv_Products AS Products_0;
+
+CREATE VIEW com_productsrv_SelProducts1 AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM com_productsrv_Products AS Products_0;
+
+CREATE VIEW com_productsrv_SelProducts2 AS SELECT
+  Products_0.name,
+  Products_0.Price,
+  Products_0.Quantity
+FROM com_productsrv_Products AS Products_0;
+
+CREATE VIEW com_productsrv_SelProducts3 AS SELECT
+  ProductReview_1.Rating,
+  Products_0.name,
+  sum(Products_0.Price) AS TotalPrice
+FROM (com_productsrv_Products AS Products_0 LEFT JOIN com_productsrv_ProductReview AS ProductReview_1 ON Products_0.name = ProductReview_1.Name)
+GROUP BY ProductReview_1.Rating, Products_0.name
+ORDER BY Rating;
+
+CREATE VIEW com_productsrv_ProjProducts AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM com_productsrv_Products AS Products_0;
+
+CREATE VIEW com_productsrv_ProjProducts2 AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM com_productsrv_Products AS Products_0;
+
+CREATE VIEW com_productsrv_ProjProducts3 AS SELECT
+  Products_0.ReleaseDate,
+  Products_0.name
+FROM com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_com_productsrv_Products AS SELECT
+  L_0.ID,
+  L_0.createdAt,
+  L_0.createdBy,
+  L_0.modifiedAt,
+  L_0.modifiedBy,
+  coalesce(localized_1.name, L_0.name) AS name,
+  coalesce(localized_1.description, L_0.description) AS description,
+  L_0.ImageURL,
+  L_0.ReleaseDate,
+  L_0.DiscontinuedDate,
+  L_0.Price,
+  L_0.Height,
+  L_0.Width,
+  L_0.Depth,
+  L_0.Quantity,
+  L_0.Supplier_ID,
+  L_0.UnitOfMeasures_ID,
+  L_0.currency_ID,
+  L_0.DimensionUnits_ID,
+  L_0.Category_ID,
+  L_0.priceCondition,
+  L_0.priceDetermination
+FROM (com_productsrv_Products AS L_0 LEFT JOIN com_productsrv_Products_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = 'en');
+
+CREATE VIEW localized_com_productsrv_Suppliers AS SELECT
+  L_0.ID,
+  coalesce(localized_1.Name, L_0.Name) AS Name,
+  L_0.Street,
+  L_0.City,
+  L_0.State,
+  L_0.PostalCode,
+  L_0.Country,
+  L_0.Email,
+  L_0.Phone,
+  L_0.Fax
+FROM (com_productsrv_Suppliers AS L_0 LEFT JOIN com_productsrv_Suppliers_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = 'en');
+
+CREATE VIEW localized_com_productsrv_Categories AS SELECT
+  L_0.ID,
+  coalesce(localized_1.Name, L_0.Name) AS Name
+FROM (com_productsrv_Categories AS L_0 LEFT JOIN com_productsrv_Categories_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = 'en');
+
+CREATE VIEW localized_com_productsrv_stockAvailability AS SELECT
+  L_0.ID,
+  coalesce(localized_1.Description, L_0.Description) AS Description,
+  L_0.Product_ID
+FROM (com_productsrv_stockAvailability AS L_0 LEFT JOIN com_productsrv_stockAvailability_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = 'en');
+
+CREATE VIEW localized_com_productsrv_Currencies AS SELECT
+  L_0.ID,
+  coalesce(localized_1.Description, L_0.Description) AS Description
+FROM (com_productsrv_Currencies AS L_0 LEFT JOIN com_productsrv_Currencies_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = 'en');
+
+CREATE VIEW localized_com_productsrv_UnitOfMeasures AS SELECT
+  L_0.ID,
+  coalesce(localized_1.Description, L_0.Description) AS Description
+FROM (com_productsrv_UnitOfMeasures AS L_0 LEFT JOIN com_productsrv_UnitOfMeasures_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = 'en');
+
+CREATE VIEW localized_com_productsrv_DimensionUnits AS SELECT
+  L_0.ID,
+  coalesce(localized_1.Description, L_0.Description) AS Description
+FROM (com_productsrv_DimensionUnits AS L_0 LEFT JOIN com_productsrv_DimensionUnits_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = 'en');
+
+CREATE VIEW localized_com_productsrv_Months AS SELECT
+  L_0.ID,
+  coalesce(localized_1.Description, L_0.Description) AS Description,
+  coalesce(localized_1.ShortDescription, L_0.ShortDescription) AS ShortDescription
+FROM (com_productsrv_Months AS L_0 LEFT JOIN com_productsrv_Months_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = 'en');
+
+CREATE VIEW localized_com_productsrv_OrderItems AS SELECT
+  L.ID,
+  L.Order_ID,
+  L.Product_ID,
+  L.Quantity
+FROM com_productsrv_OrderItems AS L;
+
+CREATE VIEW localized_com_productsrv_ProductReview AS SELECT
+  L.ID,
+  L.createdAt,
+  L.createdBy,
+  L.modifiedAt,
+  L.modifiedBy,
+  L.Name,
+  L.Rating,
+  L.Comment,
+  L.Product_ID
+FROM com_productsrv_ProductReview AS L;
+
+CREATE VIEW localized_com_productsrv_SalesData AS SELECT
+  L.ID,
+  L.createdAt,
+  L.createdBy,
+  L.modifiedAt,
+  L.modifiedBy,
+  L.DeliveryDate,
+  L.Revenue,
+  L.Product_ID,
+  L.Currency_ID,
+  L.DeliveryMonth_ID
+FROM com_productsrv_SalesData AS L;
+
+CREATE VIEW localized_com_productsrv_Orders AS SELECT
+  L.ID,
+  L.Date,
+  L.Customer
+FROM com_productsrv_Orders AS L;
+
+CREATE VIEW localized_com_productsrv_SelProducts AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM localized_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_com_productsrv_SelProducts1 AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM localized_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_com_productsrv_SelProducts2 AS SELECT
+  Products_0.name,
+  Products_0.Price,
+  Products_0.Quantity
+FROM localized_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_com_productsrv_SelProducts3 AS SELECT
+  ProductReview_1.Rating,
+  Products_0.name,
+  sum(Products_0.Price) AS TotalPrice
+FROM (localized_com_productsrv_Products AS Products_0 LEFT JOIN localized_com_productsrv_ProductReview AS ProductReview_1 ON Products_0.name = ProductReview_1.Name)
+GROUP BY ProductReview_1.Rating, Products_0.name
+ORDER BY Rating;
+
+CREATE VIEW localized_com_productsrv_ProjProducts AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM localized_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_com_productsrv_ProjProducts2 AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM localized_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_com_productsrv_ProjProducts3 AS SELECT
+  Products_0.ReleaseDate,
+  Products_0.name
+FROM localized_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_de_com_productsrv_Products AS SELECT
+  L_0.ID,
+  L_0.createdAt,
+  L_0.createdBy,
+  L_0.modifiedAt,
+  L_0.modifiedBy,
+  coalesce(localized_de_1.name, L_0.name) AS name,
+  coalesce(localized_de_1.description, L_0.description) AS description,
+  L_0.ImageURL,
+  L_0.ReleaseDate,
+  L_0.DiscontinuedDate,
+  L_0.Price,
+  L_0.Height,
+  L_0.Width,
+  L_0.Depth,
+  L_0.Quantity,
+  L_0.Supplier_ID,
+  L_0.UnitOfMeasures_ID,
+  L_0.currency_ID,
+  L_0.DimensionUnits_ID,
+  L_0.Category_ID,
+  L_0.priceCondition,
+  L_0.priceDetermination
+FROM (com_productsrv_Products AS L_0 LEFT JOIN com_productsrv_Products_texts AS localized_de_1 ON localized_de_1.ID = L_0.ID AND localized_de_1.locale = 'de');
+
+CREATE VIEW localized_fr_com_productsrv_Products AS SELECT
+  L_0.ID,
+  L_0.createdAt,
+  L_0.createdBy,
+  L_0.modifiedAt,
+  L_0.modifiedBy,
+  coalesce(localized_fr_1.name, L_0.name) AS name,
+  coalesce(localized_fr_1.description, L_0.description) AS description,
+  L_0.ImageURL,
+  L_0.ReleaseDate,
+  L_0.DiscontinuedDate,
+  L_0.Price,
+  L_0.Height,
+  L_0.Width,
+  L_0.Depth,
+  L_0.Quantity,
+  L_0.Supplier_ID,
+  L_0.UnitOfMeasures_ID,
+  L_0.currency_ID,
+  L_0.DimensionUnits_ID,
+  L_0.Category_ID,
+  L_0.priceCondition,
+  L_0.priceDetermination
+FROM (com_productsrv_Products AS L_0 LEFT JOIN com_productsrv_Products_texts AS localized_fr_1 ON localized_fr_1.ID = L_0.ID AND localized_fr_1.locale = 'fr');
+
+CREATE VIEW localized_de_com_productsrv_Suppliers AS SELECT
+  L_0.ID,
+  coalesce(localized_de_1.Name, L_0.Name) AS Name,
+  L_0.Street,
+  L_0.City,
+  L_0.State,
+  L_0.PostalCode,
+  L_0.Country,
+  L_0.Email,
+  L_0.Phone,
+  L_0.Fax
+FROM (com_productsrv_Suppliers AS L_0 LEFT JOIN com_productsrv_Suppliers_texts AS localized_de_1 ON localized_de_1.ID = L_0.ID AND localized_de_1.locale = 'de');
+
+CREATE VIEW localized_fr_com_productsrv_Suppliers AS SELECT
+  L_0.ID,
+  coalesce(localized_fr_1.Name, L_0.Name) AS Name,
+  L_0.Street,
+  L_0.City,
+  L_0.State,
+  L_0.PostalCode,
+  L_0.Country,
+  L_0.Email,
+  L_0.Phone,
+  L_0.Fax
+FROM (com_productsrv_Suppliers AS L_0 LEFT JOIN com_productsrv_Suppliers_texts AS localized_fr_1 ON localized_fr_1.ID = L_0.ID AND localized_fr_1.locale = 'fr');
+
+CREATE VIEW localized_de_com_productsrv_Categories AS SELECT
+  L_0.ID,
+  coalesce(localized_de_1.Name, L_0.Name) AS Name
+FROM (com_productsrv_Categories AS L_0 LEFT JOIN com_productsrv_Categories_texts AS localized_de_1 ON localized_de_1.ID = L_0.ID AND localized_de_1.locale = 'de');
+
+CREATE VIEW localized_fr_com_productsrv_Categories AS SELECT
+  L_0.ID,
+  coalesce(localized_fr_1.Name, L_0.Name) AS Name
+FROM (com_productsrv_Categories AS L_0 LEFT JOIN com_productsrv_Categories_texts AS localized_fr_1 ON localized_fr_1.ID = L_0.ID AND localized_fr_1.locale = 'fr');
+
+CREATE VIEW localized_de_com_productsrv_stockAvailability AS SELECT
+  L_0.ID,
+  coalesce(localized_de_1.Description, L_0.Description) AS Description,
+  L_0.Product_ID
+FROM (com_productsrv_stockAvailability AS L_0 LEFT JOIN com_productsrv_stockAvailability_texts AS localized_de_1 ON localized_de_1.ID = L_0.ID AND localized_de_1.locale = 'de');
+
+CREATE VIEW localized_fr_com_productsrv_stockAvailability AS SELECT
+  L_0.ID,
+  coalesce(localized_fr_1.Description, L_0.Description) AS Description,
+  L_0.Product_ID
+FROM (com_productsrv_stockAvailability AS L_0 LEFT JOIN com_productsrv_stockAvailability_texts AS localized_fr_1 ON localized_fr_1.ID = L_0.ID AND localized_fr_1.locale = 'fr');
+
+CREATE VIEW localized_de_com_productsrv_Currencies AS SELECT
+  L_0.ID,
+  coalesce(localized_de_1.Description, L_0.Description) AS Description
+FROM (com_productsrv_Currencies AS L_0 LEFT JOIN com_productsrv_Currencies_texts AS localized_de_1 ON localized_de_1.ID = L_0.ID AND localized_de_1.locale = 'de');
+
+CREATE VIEW localized_fr_com_productsrv_Currencies AS SELECT
+  L_0.ID,
+  coalesce(localized_fr_1.Description, L_0.Description) AS Description
+FROM (com_productsrv_Currencies AS L_0 LEFT JOIN com_productsrv_Currencies_texts AS localized_fr_1 ON localized_fr_1.ID = L_0.ID AND localized_fr_1.locale = 'fr');
+
+CREATE VIEW localized_de_com_productsrv_UnitOfMeasures AS SELECT
+  L_0.ID,
+  coalesce(localized_de_1.Description, L_0.Description) AS Description
+FROM (com_productsrv_UnitOfMeasures AS L_0 LEFT JOIN com_productsrv_UnitOfMeasures_texts AS localized_de_1 ON localized_de_1.ID = L_0.ID AND localized_de_1.locale = 'de');
+
+CREATE VIEW localized_fr_com_productsrv_UnitOfMeasures AS SELECT
+  L_0.ID,
+  coalesce(localized_fr_1.Description, L_0.Description) AS Description
+FROM (com_productsrv_UnitOfMeasures AS L_0 LEFT JOIN com_productsrv_UnitOfMeasures_texts AS localized_fr_1 ON localized_fr_1.ID = L_0.ID AND localized_fr_1.locale = 'fr');
+
+CREATE VIEW localized_de_com_productsrv_DimensionUnits AS SELECT
+  L_0.ID,
+  coalesce(localized_de_1.Description, L_0.Description) AS Description
+FROM (com_productsrv_DimensionUnits AS L_0 LEFT JOIN com_productsrv_DimensionUnits_texts AS localized_de_1 ON localized_de_1.ID = L_0.ID AND localized_de_1.locale = 'de');
+
+CREATE VIEW localized_fr_com_productsrv_DimensionUnits AS SELECT
+  L_0.ID,
+  coalesce(localized_fr_1.Description, L_0.Description) AS Description
+FROM (com_productsrv_DimensionUnits AS L_0 LEFT JOIN com_productsrv_DimensionUnits_texts AS localized_fr_1 ON localized_fr_1.ID = L_0.ID AND localized_fr_1.locale = 'fr');
+
+CREATE VIEW localized_de_com_productsrv_Months AS SELECT
+  L_0.ID,
+  coalesce(localized_de_1.Description, L_0.Description) AS Description,
+  coalesce(localized_de_1.ShortDescription, L_0.ShortDescription) AS ShortDescription
+FROM (com_productsrv_Months AS L_0 LEFT JOIN com_productsrv_Months_texts AS localized_de_1 ON localized_de_1.ID = L_0.ID AND localized_de_1.locale = 'de');
+
+CREATE VIEW localized_fr_com_productsrv_Months AS SELECT
+  L_0.ID,
+  coalesce(localized_fr_1.Description, L_0.Description) AS Description,
+  coalesce(localized_fr_1.ShortDescription, L_0.ShortDescription) AS ShortDescription
+FROM (com_productsrv_Months AS L_0 LEFT JOIN com_productsrv_Months_texts AS localized_fr_1 ON localized_fr_1.ID = L_0.ID AND localized_fr_1.locale = 'fr');
+
+CREATE VIEW localized_de_com_productsrv_OrderItems AS SELECT
+  L.ID,
+  L.Order_ID,
+  L.Product_ID,
+  L.Quantity
+FROM com_productsrv_OrderItems AS L;
+
+CREATE VIEW localized_fr_com_productsrv_OrderItems AS SELECT
+  L.ID,
+  L.Order_ID,
+  L.Product_ID,
+  L.Quantity
+FROM com_productsrv_OrderItems AS L;
+
+CREATE VIEW localized_de_com_productsrv_ProductReview AS SELECT
+  L.ID,
+  L.createdAt,
+  L.createdBy,
+  L.modifiedAt,
+  L.modifiedBy,
+  L.Name,
+  L.Rating,
+  L.Comment,
+  L.Product_ID
+FROM com_productsrv_ProductReview AS L;
+
+CREATE VIEW localized_fr_com_productsrv_ProductReview AS SELECT
+  L.ID,
+  L.createdAt,
+  L.createdBy,
+  L.modifiedAt,
+  L.modifiedBy,
+  L.Name,
+  L.Rating,
+  L.Comment,
+  L.Product_ID
+FROM com_productsrv_ProductReview AS L;
+
+CREATE VIEW localized_de_com_productsrv_SalesData AS SELECT
+  L.ID,
+  L.createdAt,
+  L.createdBy,
+  L.modifiedAt,
+  L.modifiedBy,
+  L.DeliveryDate,
+  L.Revenue,
+  L.Product_ID,
+  L.Currency_ID,
+  L.DeliveryMonth_ID
+FROM com_productsrv_SalesData AS L;
+
+CREATE VIEW localized_fr_com_productsrv_SalesData AS SELECT
+  L.ID,
+  L.createdAt,
+  L.createdBy,
+  L.modifiedAt,
+  L.modifiedBy,
+  L.DeliveryDate,
+  L.Revenue,
+  L.Product_ID,
+  L.Currency_ID,
+  L.DeliveryMonth_ID
+FROM com_productsrv_SalesData AS L;
+
+CREATE VIEW localized_de_com_productsrv_Orders AS SELECT
+  L.ID,
+  L.Date,
+  L.Customer
+FROM com_productsrv_Orders AS L;
+
+CREATE VIEW localized_fr_com_productsrv_Orders AS SELECT
+  L.ID,
+  L.Date,
+  L.Customer
+FROM com_productsrv_Orders AS L;
+
+CREATE VIEW localized_de_com_productsrv_SelProducts AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM localized_de_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_fr_com_productsrv_SelProducts AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM localized_fr_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_de_com_productsrv_SelProducts1 AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM localized_de_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_fr_com_productsrv_SelProducts1 AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM localized_fr_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_de_com_productsrv_SelProducts2 AS SELECT
+  Products_0.name,
+  Products_0.Price,
+  Products_0.Quantity
+FROM localized_de_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_fr_com_productsrv_SelProducts2 AS SELECT
+  Products_0.name,
+  Products_0.Price,
+  Products_0.Quantity
+FROM localized_fr_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_de_com_productsrv_SelProducts3 AS SELECT
+  ProductReview_1.Rating,
+  Products_0.name,
+  sum(Products_0.Price) AS TotalPrice
+FROM (localized_de_com_productsrv_Products AS Products_0 LEFT JOIN localized_de_com_productsrv_ProductReview AS ProductReview_1 ON Products_0.name = ProductReview_1.Name)
+GROUP BY ProductReview_1.Rating, Products_0.name
+ORDER BY Rating;
+
+CREATE VIEW localized_fr_com_productsrv_SelProducts3 AS SELECT
+  ProductReview_1.Rating,
+  Products_0.name,
+  sum(Products_0.Price) AS TotalPrice
+FROM (localized_fr_com_productsrv_Products AS Products_0 LEFT JOIN localized_fr_com_productsrv_ProductReview AS ProductReview_1 ON Products_0.name = ProductReview_1.Name)
+GROUP BY ProductReview_1.Rating, Products_0.name
+ORDER BY Rating;
+
+CREATE VIEW localized_de_com_productsrv_ProjProducts AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM localized_de_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_fr_com_productsrv_ProjProducts AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM localized_fr_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_de_com_productsrv_ProjProducts2 AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM localized_de_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_fr_com_productsrv_ProjProducts2 AS SELECT
+  Products_0.ID,
+  Products_0.createdAt,
+  Products_0.createdBy,
+  Products_0.modifiedAt,
+  Products_0.modifiedBy,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM localized_fr_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_de_com_productsrv_ProjProducts3 AS SELECT
+  Products_0.ReleaseDate,
+  Products_0.name
+FROM localized_de_com_productsrv_Products AS Products_0;
+
+CREATE VIEW localized_fr_com_productsrv_ProjProducts3 AS SELECT
+  Products_0.ReleaseDate,
+  Products_0.name
+FROM localized_fr_com_productsrv_Products AS Products_0;
+

@@ -1,0 +1,237 @@
+
+CREATE TABLE com_productsrv_car (
+  ID NVARCHAR(36) NOT NULL,
+  name NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Order (
+  clientGender NVARCHAR(5000),
+  status INTEGER,
+  priority NVARCHAR(5000)
+);
+
+CREATE TABLE com_productsrv_Emails (
+  email_01 NCLOB,
+  email_02 NCLOB,
+  email_03 NCLOB
+);
+
+CREATE TABLE com_productsrv_Products (
+  ID NVARCHAR(36) NOT NULL,
+  name NVARCHAR(5000) NOT NULL DEFAULT 'NoName',
+  description NVARCHAR(5000),
+  ImageURL NVARCHAR(5000),
+  ReleaseDate TIMESTAMP_TEXT DEFAULT CURRENT_TIMESTAMP,
+  DiscontinuedDate TIMESTAMP_TEXT,
+  Price DECIMAL(16, 2),
+  Height DECIMAL(16, 2),
+  Width DECIMAL(16, 2),
+  Depth DECIMAL(16, 2),
+  Quantity DECIMAL(16, 2),
+  Supplier_ID NVARCHAR(36),
+  UnitOfMeasures_ID NVARCHAR(2),
+  currency_ID NVARCHAR(3),
+  DimensionUnits_ID NVARCHAR(2),
+  Category_ID NVARCHAR(1),
+  priceCondition NVARCHAR(2),
+  priceDetermination NVARCHAR(3),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Suppliers (
+  ID NVARCHAR(36) NOT NULL,
+  Name NVARCHAR(5000) NOT NULL DEFAULT 'NoName',
+  Street NVARCHAR(5000),
+  City NVARCHAR(5000),
+  State NVARCHAR(2),
+  PostalCode NVARCHAR(5),
+  Country NVARCHAR(3),
+  Email NVARCHAR(5000),
+  Phone NVARCHAR(5000),
+  Fax NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Suppliers_01 (
+  ID NVARCHAR(36) NOT NULL,
+  Name NVARCHAR(5000),
+  Address_Street NVARCHAR(5000),
+  Address_City NVARCHAR(5000),
+  Address_State NVARCHAR(2),
+  Address_PostalCode NVARCHAR(5),
+  Address_Country NVARCHAR(3),
+  Email NVARCHAR(5000),
+  Phone NVARCHAR(5000),
+  Fax NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Suppliers_02 (
+  ID NVARCHAR(36) NOT NULL,
+  Name NVARCHAR(5000),
+  Address_Street NVARCHAR(5000),
+  Address_City NVARCHAR(5000),
+  Address_State NVARCHAR(2),
+  Address_PostalCode NVARCHAR(5),
+  Address_Country NVARCHAR(3),
+  Email NVARCHAR(5000),
+  Phone NVARCHAR(5000),
+  Fax NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_Categories (
+  ID NVARCHAR(1) NOT NULL,
+  Name NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_stockAvailability (
+  ID INTEGER NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_currencies (
+  ID NVARCHAR(3) NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_UnitOfMeasures (
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_DimensionUnits (
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_months (
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(5000),
+  ShortDescription NVARCHAR(3),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_productsrv_ProductReview (
+  Name NVARCHAR(5000) NOT NULL,
+  Rating INTEGER,
+  Comment NVARCHAR(5000),
+  PRIMARY KEY(Name)
+);
+
+CREATE TABLE com_productsrv_salesData (
+  ID NVARCHAR(36) NOT NULL,
+  DeliveryDate TIMESTAMP_TEXT,
+  Revenue DECIMAL(16, 2),
+  PRIMARY KEY(ID)
+);
+
+CREATE VIEW com_productsrv_SelProducts AS SELECT
+  Products_0.ID,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM com_productsrv_Products AS Products_0;
+
+CREATE VIEW com_productsrv_SelProducts1 AS SELECT
+  Products_0.ID,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM com_productsrv_Products AS Products_0;
+
+CREATE VIEW com_productsrv_SelProducts2 AS SELECT
+  Products_0.name,
+  Products_0.Price,
+  Products_0.Quantity
+FROM com_productsrv_Products AS Products_0;
+
+CREATE VIEW com_productsrv_SelProducts3 AS SELECT
+  ProductReview_1.Rating,
+  Products_0.name,
+  sum(Products_0.Price) AS TotalPrice
+FROM (com_productsrv_Products AS Products_0 LEFT JOIN com_productsrv_ProductReview AS ProductReview_1 ON Products_0.name = ProductReview_1.Name)
+GROUP BY ProductReview_1.Rating, Products_0.name
+ORDER BY Rating;
+
+CREATE VIEW com_productsrv_ProjProducts AS SELECT
+  Products_0.ID,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM com_productsrv_Products AS Products_0;
+
+CREATE VIEW com_productsrv_ProjProducts2 AS SELECT
+  Products_0.ID,
+  Products_0.name,
+  Products_0.description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.priceCondition,
+  Products_0.priceDetermination
+FROM com_productsrv_Products AS Products_0;
+
+CREATE VIEW com_productsrv_ProjProducts3 AS SELECT
+  Products_0.ReleaseDate,
+  Products_0.name
+FROM com_productsrv_Products AS Products_0;
+

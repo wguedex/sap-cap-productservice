@@ -73,12 +73,16 @@ entity Products {
         Width            : Decimal(16, 2);
         Depth            : Decimal(16, 2);
         Quantity         : Decimal(16, 2);
-        Supplier_ID      : UUID;
-        ToSupplier       : Association to one Suppliers
-                               on ToSupplier.ID = Supplier_ID;
-        UnitOfMeasure_ID : String(2);
-        TounitOfMeasure  : Association to UnitOfMeasures
-                               on TounitOfMeasure.ID = UnitOfMeasure_ID;
+        // Supplier_ID      : UUID;
+        Supplier       : Association to one Suppliers;
+                            //    on ToSupplier.ID = Supplier_ID;
+        // UnitOfMeasure_ID : String(2);
+        UnitOfMeasures  : Association to UnitOfMeasures;
+                            //    on TounitOfMeasure.ID = UnitOfMeasure_ID;
+
+        currency : Association to  currencies;
+        DimensionUnits : Association to DimensionUnits;
+        Category : Association to Categories;
 
 }
 
@@ -120,7 +124,7 @@ entity Suppliers_02 {
         Fax     : String;
 }
 
-entity Category {
+entity Categories {
     key ID   : String(1);
         Name : String
 }

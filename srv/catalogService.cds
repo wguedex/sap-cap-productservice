@@ -1,15 +1,15 @@
 using com.productsrv as productsrv from '../db/schema';
 
 service CatalogService {
-    entity Products       as projection on productsrv.Products;
-    entity Suppliers      as projection on productsrv.Suppliers;
-    entity Currency       as projection on productsrv.Currencies;
-    entity DimensionUnit  as projection on productsrv.DimensionUnits;
-    entity Category       as projection on productsrv.Categories;
-    entity SalesData      as projection on productsrv.SalesData;
-    entity Review         as projection on productsrv.ProductReview;
-    entity UnitOfMeasures as projection on productsrv.UnitOfMeasures;
-    entity Months         as projection on productsrv.Months;
-    entity Order          as projection on productsrv.Orders;
-    entity OrderItem      as projection on productsrv.OrderItems;
+    entity Products       as projection on productsrv.Materials.Products;
+    entity Suppliers      as projection on productsrv.Sales.Suppliers;
+    entity Currency       as projection on productsrv.Materials.Currencies;
+    entity DimensionUnit  as projection on productsrv.Materials.DimensionUnits;
+    entity Category       as projection on productsrv.Materials.Categories;
+    entity SalesData      as projection on productsrv.Sales.SalesData;
+    entity Review         as projection on productsrv.Materials.ProductReview;
+    entity UnitOfMeasures as projection on productsrv.Materials.UnitOfMeasures;
+    entity Months         as projection on productsrv.Sales.Months;
+    entity Order          as projection on productsrv.Sales.Orders;
+    entity OrderItem      as projection on productsrv.Sales.OrderItems;
 }

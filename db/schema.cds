@@ -3,16 +3,19 @@ namespace com.productsrv;
 define type name       : String(50);
 define type Dec        : Decimal(16, 2);
 
-using {cuid} from '@sap/cds/common';
+using {
+    cuid,
+    managed
+} from '@sap/cds/common';
 
 entity car : cuid {
     // key ID                 : UUID;
-        name               : String;
-        virtual discount_1 : Decimal;
+    name               : String;
+    virtual discount_1 : Decimal;
 
-        //Allow the client to send data
-        @Core.Computed: false
-        virtual discount_2 : Decimal;
+    //Allow the client to send data
+    @Core.Computed: false
+    virtual discount_2 : Decimal;
 }
 
 type Gender            : String enum {
@@ -36,11 +39,11 @@ entity Order {
     };
 }
 
-entity Orders : cuid { 
-        Date     : Date;
-        Customer : String;
-        Item     : Composition of many OrderItems
-                       on Item.Order = $self;
+entity Orders : cuid {
+    Date     : Date;
+    Customer : String;
+    Item     : Composition of many OrderItems
+                   on Item.Order = $self;
 }
 
 entity OrderItems {
@@ -77,7 +80,7 @@ entity Emails {
     }
 }
 
-entity Products : cuid { 
+entity Products : cuid, managed {
     name             : String default 'NoName' not null;
     description      : String;
     ImageURL         : String;
@@ -100,41 +103,41 @@ entity Products : cuid {
 
 }
 
-entity Suppliers : cuid { 
-        Name       : type of Products : name;  
+entity Suppliers : cuid {
+    Name       : type of Products : name;
+    Street     : String;
+    City       : String;
+    State      : String(2);
+    PostalCode : String(5);
+    Country    : String(3);
+    Email      : String;
+    Phone      : String;
+    Fax        : String;
+    Product    : Association to many Products
+                     on Product.Supplier = $self;
+}
+
+entity Suppliers_01 : cuid {
+    Name    : String;
+    Address : Address;
+    Email   : String;
+    Phone   : String;
+    Fax     : String;
+}
+
+
+entity Suppliers_02 : cuid {
+    Name    : String;
+    Address : {
         Street     : String;
         City       : String;
         State      : String(2);
         PostalCode : String(5);
         Country    : String(3);
-        Email      : String;
-        Phone      : String;
-        Fax        : String;
-        Product    : Association to many Products
-                         on Product.Supplier = $self;
-}
-
-entity Suppliers_01 : cuid { 
-        Name    : String;
-        Address : Address;
-        Email   : String;
-        Phone   : String;
-        Fax     : String;
-}
-
-
-entity Suppliers_02 : cuid { 
-        Name    : String;
-        Address : {
-            Street     : String;
-            City       : String;
-            State      : String(2);
-            PostalCode : String(5);
-            Country    : String(3);
-        };
-        Email   : String;
-        Phone   : String;
-        Fax     : String;
+    };
+    Email   : String;
+    Phone   : String;
+    Fax     : String;
 }
 
 entity Categories {
@@ -168,19 +171,19 @@ entity Months {
         ShortDescription : String(3);
 }
 
-entity ProductReview : cuid { 
-        Name    : String;
-        Rating  : Integer;
-        Comment : String;
-        Product : Association to Products;
+entity ProductReview : cuid, managed {
+    Name    : String;
+    Rating  : Integer;
+    Comment : String;
+    Product : Association to Products;
 }
 
-entity SalesData  : cuid { 
-        DeliveryDate  : DateTime;
-        Revenue       : Decimal(16, 2);
-        Product       : Association to Products;
-        Currency      : Association to Currencies;
-        DeliveryMonth : Association to Months;
+entity SalesData : cuid, managed {
+    DeliveryDate  : DateTime;
+    Revenue       : Decimal(16, 2);
+    Product       : Association to Products;
+    Currency      : Association to Currencies;
+    DeliveryMonth : Association to Months;
 }
 
 
@@ -239,24 +242,24 @@ entity ProjProducts3 as projection on Products {
 // entity projParamProducts(pName : String) as projection on Products where name = :pName;
 */
 
-extend Products with { 
+extend Products with {
     priceCondition     : String(2);
     priceDetermination : String(3);
 
 }
 
 
-entity Course : cuid { 
-        Student : Association to many StudentCourse
-                      on Student.Course = $self;
+entity Course : cuid {
+    Student : Association to many StudentCourse
+                  on Student.Course = $self;
 }
 
-entity Student : cuid { 
-        Course : Association to many StudentCourse
-                     on Course.Student = $self;
+entity Student : cuid {
+    Course : Association to many StudentCourse
+                 on Course.Student = $self;
 }
 
-entity StudentCourse : cuid { 
-        Student : Association to Student;
-        Course  : Association to Course;
+entity StudentCourse : cuid {
+    Student : Association to Student;
+    Course  : Association to Course;
 }

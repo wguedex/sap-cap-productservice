@@ -3,8 +3,10 @@ namespace com.productsrv;
 define type name       : String(50);
 define type Dec        : Decimal(16, 2);
 
-entity car {
-    key ID                 : UUID;
+using {cuid} from '@sap/cds/common';
+
+entity car : cuid {
+    // key ID                 : UUID;
         name               : String;
         virtual discount_1 : Decimal;
 
@@ -34,8 +36,7 @@ entity Order {
     };
 }
 
-entity Orders {
-    key ID       : UUID;
+entity Orders : cuid { 
         Date     : Date;
         Customer : String;
         Item     : Composition of many OrderItems
@@ -76,33 +77,31 @@ entity Emails {
     }
 }
 
-entity Products {
-    key ID               : UUID;
-        name             : String default 'NoName' not null;
-        description      : String;
-        ImageURL         : String;
-        ReleaseDate      : DateTime default $now;
-        DiscontinuedDate : DateTime;
-        Price            : Dec;
-        Height           : type of Price;
-        Width            : Decimal(16, 2);
-        Depth            : Decimal(16, 2);
-        Quantity         : Decimal(16, 2);
-        Supplier         : Association to one Suppliers;
-        UnitOfMeasures   : Association to UnitOfMeasures;
-        currency         : Association to Currencies;
-        DimensionUnits   : Association to DimensionUnits;
-        Category         : Association to Categories;
-        toSalesData      : Association to many SalesData
-                               on toSalesData.Product = $self;
-        Reviews          : Association to many ProductReview
-                               on Reviews.Product = $self;
+entity Products : cuid { 
+    name             : String default 'NoName' not null;
+    description      : String;
+    ImageURL         : String;
+    ReleaseDate      : DateTime default $now;
+    DiscontinuedDate : DateTime;
+    Price            : Dec;
+    Height           : type of Price;
+    Width            : Decimal(16, 2);
+    Depth            : Decimal(16, 2);
+    Quantity         : Decimal(16, 2);
+    Supplier         : Association to one Suppliers;
+    UnitOfMeasures   : Association to UnitOfMeasures;
+    currency         : Association to Currencies;
+    DimensionUnits   : Association to DimensionUnits;
+    Category         : Association to Categories;
+    toSalesData      : Association to many SalesData
+                           on toSalesData.Product = $self;
+    Reviews          : Association to many ProductReview
+                           on Reviews.Product = $self;
 
 }
 
-entity Suppliers {
-    key ID         : UUID;
-        Name       : type of Products : name; //String;
+entity Suppliers : cuid { 
+        Name       : type of Products : name;  
         Street     : String;
         City       : String;
         State      : String(2);
@@ -115,8 +114,7 @@ entity Suppliers {
                          on Product.Supplier = $self;
 }
 
-entity Suppliers_01 {
-    key ID      : UUID;
+entity Suppliers_01 : cuid { 
         Name    : String;
         Address : Address;
         Email   : String;
@@ -125,8 +123,7 @@ entity Suppliers_01 {
 }
 
 
-entity Suppliers_02 {
-    key ID      : UUID;
+entity Suppliers_02 : cuid { 
         Name    : String;
         Address : {
             Street     : String;
@@ -171,16 +168,14 @@ entity Months {
         ShortDescription : String(3);
 }
 
-entity ProductReview {
-    key ID      : UUID;
+entity ProductReview : cuid { 
         Name    : String;
         Rating  : Integer;
         Comment : String;
         Product : Association to Products;
 }
 
-entity SalesData {
-    key ID            : UUID;
+entity SalesData  : cuid { 
         DeliveryDate  : DateTime;
         Revenue       : Decimal(16, 2);
         Product       : Association to Products;
@@ -244,28 +239,24 @@ entity ProjProducts3 as projection on Products {
 // entity projParamProducts(pName : String) as projection on Products where name = :pName;
 */
 
-extend Products with {
-
+extend Products with { 
     priceCondition     : String(2);
     priceDetermination : String(3);
 
 }
 
 
-entity Course {
-    key ID      : UUID;
+entity Course : cuid { 
         Student : Association to many StudentCourse
                       on Student.Course = $self;
 }
 
-entity Student {
-    key ID     : UUID;
+entity Student : cuid { 
         Course : Association to many StudentCourse
                      on Course.Student = $self;
 }
 
-entity StudentCourse {
-    key ID      : UUID;
+entity StudentCourse : cuid { 
         Student : Association to Student;
         Course  : Association to Course;
 }

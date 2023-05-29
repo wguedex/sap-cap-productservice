@@ -158,14 +158,14 @@ entity salesData {
 }
 
 
-entity SelProducts   as select from Products;
+entity SelProducts                       as select from Products;
 
-entity SelProducts1  as
+entity SelProducts1                      as
     select from Products {
         *
     };
 
-entity SelProducts2  as
+entity SelProducts2                      as
     select from Products {
         name,
         Price,
@@ -173,7 +173,7 @@ entity SelProducts2  as
     };
 
 
-entity SelProducts3  as
+entity SelProducts3                      as
     select from Products
     left join ProductReview
         on Products.name = ProductReview.Name
@@ -188,13 +188,27 @@ entity SelProducts3  as
     order by
         Rating;
 
-entity ProjProducts  as projection on Products;
+entity ProjProducts                      as projection on Products;
 
-entity ProjProducts2 as projection on Products {
+entity ProjProducts2                     as projection on Products {
     *
 };
 
-entity ProjProducts3 as projection on Products {
+entity ProjProducts3                     as projection on Products {
     ReleaseDate,
     name
 };
+
+/*SAP CAP entities, compatible with HANA, not SQLite.
+// entity paramProducts(pName : String)     as
+//     select from Products {
+//         name,
+//         Price,
+//         Quantity
+
+//     }
+//     where
+//         name = :pName;
+
+// entity projParamProducts(pName : String) as projection on Products where name = :pName;
+*/

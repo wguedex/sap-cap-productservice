@@ -149,22 +149,27 @@ entity DimensionUnits {
         Description : String;
 }
 
-entity months {
+entity Months {
     key ID               : String(2);
         Description      : String;
         ShortDescription : String(3);
 }
 
 entity ProductReview {
-    key Name    : String;
+    key ID : UUID;
+        Name    : String;
         Rating  : Integer;
         Comment : String;
+        Product : Association to Products;
 }
 
 entity salesData {
     key ID           : UUID;
         DeliveryDate : DateTime;
         Revenue      : Decimal(16, 2);
+        Product: Association to Products;
+        Currency : Association to currencies;
+        DeliveryMonth : Association to Months;
 }
 
 

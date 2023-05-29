@@ -73,6 +73,9 @@ entity Products {
         Width            : Decimal(16, 2);
         Depth            : Decimal(16, 2);
         Quantity         : Decimal(16, 2);
+        Supplier_ID      : UUID;
+        ToSupplier       : Association to one Suppliers
+                               on ToSupplier.ID = Supplier_ID;
 
 }
 

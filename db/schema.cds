@@ -76,6 +76,9 @@ entity Products {
         Supplier_ID      : UUID;
         ToSupplier       : Association to one Suppliers
                                on ToSupplier.ID = Supplier_ID;
+        UnitOfMeasure_ID : String(2);
+        TounitOfMeasure  : Association to UnitOfMeasures
+                               on TounitOfMeasure.ID = UnitOfMeasure_ID;
 
 }
 
@@ -132,7 +135,7 @@ entity currencies {
         Description : String;
 }
 
-entity unitOfMeasures {
+entity UnitOfMeasures {
     key ID          : String(2);
         Description : String;
 }

@@ -1,43 +1,11 @@
 namespace com.productsrv;
 
-define type name       : String(50);
-define type Dec        : Decimal(16, 2);
-
 using {
     cuid,
     managed
 } from '@sap/cds/common';
 
-entity car : cuid {
-    // key ID                 : UUID;
-    name               : String;
-    virtual discount_1 : Decimal;
-
-    //Allow the client to send data
-    @Core.Computed: false
-    virtual discount_2 : Decimal;
-}
-
-type Gender            : String enum {
-    male;
-    female;
-};
-
-entity Order {
-    clientGender : Gender;
-    status       : Integer enum {
-        submitted = 1;
-        fulfiller = 2;
-        shipped   = 3;
-        cancel    = -1;
-
-    };
-    priority     : String @assert.range enum {
-        high;
-        medium;
-        low;
-    };
-}
+define type Dec        : Decimal(16, 2);
 
 entity Orders : cuid {
     Date     : Date;
@@ -51,33 +19,6 @@ entity OrderItems {
         Order    : Association to Orders;
         Product  : Association to Products;
         Quantity : Integer;
-}
-
-type Address {
-    Street     : String;
-    City       : String;
-    State      : String(2);
-    PostalCode : String(5);
-    Country    : String(3);
-}
-
-type EmailAddresses_01 : array of {
-    kind  : String;
-    email : String;
-}
-
-type EmailAddresses_02 {
-    kind  : String;
-    email : String;
-}
-
-entity Emails {
-    email_01 :      EmailAddresses_01;
-    email_02 : many EmailAddresses_02;
-    email_03 : many {
-        kind  : String;
-        email : String;
-    }
 }
 
 entity Products : cuid, managed {
@@ -115,29 +56,6 @@ entity Suppliers : cuid {
     Fax        : String;
     Product    : Association to many Products
                      on Product.Supplier = $self;
-}
-
-entity Suppliers_01 : cuid {
-    Name    : String;
-    Address : Address;
-    Email   : String;
-    Phone   : String;
-    Fax     : String;
-}
-
-
-entity Suppliers_02 : cuid {
-    Name    : String;
-    Address : {
-        Street     : String;
-        City       : String;
-        State      : String(2);
-        PostalCode : String(5);
-        Country    : String(3);
-    };
-    Email   : String;
-    Phone   : String;
-    Fax     : String;
 }
 
 entity Categories {
@@ -229,38 +147,8 @@ entity ProjProducts3 as projection on Products {
     name
 };
 
-/*SAP CAP entities, compatible with HANA, not SQLite.
-// entity paramProducts(pName : String)     as
-//     select from Products {
-//         name,
-//         Price,
-//         Quantity
-
-//     }
-//     where
-//         name = :pName;
-
-// entity projParamProducts(pName : String) as projection on Products where name = :pName;
-*/
-
 extend Products with {
     priceCondition     : String(2);
     priceDetermination : String(3);
 
-}
-
-
-entity Course : cuid {
-    Student : Association to many StudentCourse
-                  on Student.Course = $self;
-}
-
-entity Student : cuid {
-    Course : Association to many StudentCourse
-                 on Course.Student = $self;
-}
-
-entity StudentCourse : cuid {
-    Student : Association to Student;
-    Course  : Association to Course;
 }

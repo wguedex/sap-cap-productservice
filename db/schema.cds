@@ -4,12 +4,13 @@ define type name       : String(50);
 define type Dec        : Decimal(16, 2);
 
 entity car {
-    key ID : UUID;
-    name : String;
-    virtual discount_1 : Decimal; 
-    //Allow the client to send data
-    @Core.Computed : false
-    virtual discount_2 : Decimal; 
+    key ID                 : UUID;
+        name               : String;
+        virtual discount_1 : Decimal;
+
+        //Allow the client to send data
+        @Core.Computed: false
+        virtual discount_2 : Decimal;
 }
 
 type Gender            : String enum {
@@ -26,7 +27,7 @@ entity Order {
         cancel    = -1;
 
     };
-    priority : String @assert.range enum {
+    priority     : String @assert.range enum {
         high;
         medium;
         low;
@@ -155,3 +156,34 @@ entity salesData {
         DeliveryDate : DateTime;
         Revenue      : Decimal(16, 2);
 }
+
+
+entity SelProducts  as select from Products;
+
+entity SelProducts1 as
+    select from Products {
+        *
+    };
+
+entity SelProducts2 as
+    select from Products {
+        name,
+        Price,
+        Quantity
+    };
+
+
+entity SelProducts3 as
+    select from Products
+    left join ProductReview
+        on Products.name = ProductReview.Name
+    {
+        Rating,
+        Products.name,
+        sum(Price) as TotalPrice
+    }
+    group by
+        Rating,
+        Products.name
+    order by
+        Rating;

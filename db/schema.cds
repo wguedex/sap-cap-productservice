@@ -235,3 +235,22 @@ extend Products with {
     priceDetermination : String(3);
 
 }
+
+
+entity Course {
+    key ID      : UUID;
+        Student : Association to many StudentCourse
+                      on Student.Course = $self;
+}
+
+entity Student {
+    key ID : UUID;
+        Course : Association to many StudentCourse
+                      on Course.Student = $self;    
+}
+
+entity StudentCourse {
+    key ID      : UUID;
+        Student : Association to Student;
+        Course  : Association to Course;
+}

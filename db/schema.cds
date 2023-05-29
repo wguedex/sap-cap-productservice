@@ -3,6 +3,15 @@ namespace com.productsrv;
 define type name       : String(50);
 define type Dec        : Decimal(16, 2);
 
+entity car {
+    key ID : UUID;
+    name : String;
+    virtual discount_1 : Decimal; 
+    //Allow the client to send data
+    @Core.Computed : false
+    virtual discount_2 : Decimal; 
+}
+
 type Gender            : String enum {
     male;
     female;

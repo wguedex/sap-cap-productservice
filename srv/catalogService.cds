@@ -1,4 +1,5 @@
 using com.productsrv as productsrv from '../db/schema';
+using com.training as training from '../db/training';
 
 service CatalogService {
     entity Products       as projection on productsrv.Materials.Products;

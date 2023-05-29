@@ -9,5 +9,7 @@ service CatalogService {
     entity SalesData      as projection on productsrv.SalesData;
     entity Review         as projection on productsrv.ProductReview;
     entity UnitOfMeasures as projection on productsrv.UnitOfMeasures;
+    entity Months         as projection on productsrv.Months;
+    entity Order          as projection on productsrv.Orders;
+    entity OrderItem      as projection on productsrv.OrderItems;
 }
- 

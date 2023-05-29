@@ -34,6 +34,21 @@ entity Order {
     };
 }
 
+entity Orders {
+    key ID       : UUID;
+        Date     : Date;
+        Customer : String;
+        Item     : Composition of many OrderItems
+                       on Item.Order = $self;
+}
+
+entity OrderItems {
+    key ID       : UUID;
+        Order    : Association to Orders;
+        Product  : Association to Products;
+        Quantity : Integer;
+}
+
 type Address {
     Street     : String;
     City       : String;
@@ -244,9 +259,9 @@ entity Course {
 }
 
 entity Student {
-    key ID : UUID;
+    key ID     : UUID;
         Course : Association to many StudentCourse
-                      on Course.Student = $self;    
+                     on Course.Student = $self;
 }
 
 entity StudentCourse {

@@ -20,16 +20,17 @@ define service CatalogService {
 
     entity Products          as
         select from productsrv.Materials.Products {
-            ID,
-            name           as ProductName      @mandatory,
-            description                        @mandatory,
-            ImageURL,
-            ReleaseDate,
-            DiscontinuedDate,
-            Price                              @mandatory,
-            Height,
-            Width,
-            Depth,
+            // ID,
+            // name           as ProductName      @mandatory,
+            // description                        @mandatory,
+            // ImageURL,
+            // ReleaseDate,
+            // DiscontinuedDate,
+            // Price                              @mandatory,
+            // Height,
+            // Width,
+            // Depth,
+            *,
             Quantity,
             UnitOfMeasures as toUnitOfMeasures @mandatory,
             currency       as toCurrency       @mandatory,
@@ -102,11 +103,12 @@ define service CatalogService {
             Description as Text
         };
 
-    //Postfix projections 
+    //Postfix projections
     @readonly
     entity VH_DimensionUnit  as
-        ID AS Code, 
-        Description as Text
-        select from productsrv.Materials.DimensionUnits;
+        select
+            ID          as Code,
+            Description as Text
+        from productsrv.Materials.DimensionUnits;
 
 }

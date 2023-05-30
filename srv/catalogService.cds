@@ -21,26 +21,27 @@ define service CatalogService {
     entity Products          as
         select from productsrv.Materials.Products {
             ID,
-            name           as ProductName,
-            description,
+            name           as ProductName      @mandatory,
+            description                        @mandatory,
             ImageURL,
             ReleaseDate,
             DiscontinuedDate,
-            Price,
+            Price                              @mandatory,
             Height,
             Width,
             Depth,
             Quantity,
-            UnitOfMeasures as toUnitOfMeasures,
-            currency       as toCurrency,
-            Category       as toCategory,
-            Category.Name  as Category,
+            UnitOfMeasures as toUnitOfMeasures @mandatory,
+            currency       as toCurrency       @mandatory,
+            Category       as toCategory       @mandatory,
+            Category.Name  as Category         @readonly,
             DimensionUnits as toDimensionUnit,
             toSalesData,
             Supplier,
             Reviews
         };
 
+    @readonly
     entity Supplier          as
         select from productsrv.Sales.Suppliers {
             ID,
@@ -61,6 +62,7 @@ define service CatalogService {
             Product as toProduct
         };
 
+    @readonly
     entity SalesData         as
         select from productsrv.Sales.SalesData {
             ID,
@@ -71,6 +73,7 @@ define service CatalogService {
             Product       as toProduct
         };
 
+    @readonly
     entity stockAvailability as
         select from productsrv.Materials.stockAvailability {
             ID,
@@ -78,24 +81,28 @@ define service CatalogService {
             Product as toProduct
         };
 
+    @readonly
     entity VH_Categories     as
         select from productsrv.Materials.Categories {
             ID   as Code,
             Name as Text
         };
 
+    @readonly
     entity VH_Currencies     as
         select from productsrv.Materials.Currencies {
             ID          as Code,
             Description as Text
         };
 
+    @readonly
     entity VH_UnitOfMeasure  as
         select from productsrv.Materials.UnitOfMeasures {
             ID          as Code,
             Description as Text
         };
 
+    @readonly
     entity VH_DimensionUnit  as
         select from productsrv.Materials.DimensionUnits {
             ID          as Code,

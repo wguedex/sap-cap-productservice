@@ -149,3 +149,9 @@ define service MyService {
         where
             Products.name = 'Bread';
 }
+
+define service Reports {
+
+    entity AverageRating     as projection on productsrv.Reports.AverageRating;
+
+}

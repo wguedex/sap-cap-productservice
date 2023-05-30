@@ -67,10 +67,10 @@ context Materials {
     }
 
     entity ProductReview : cuid, managed {
+        Product : Association to Products;
         Name    : String;
         Rating  : Integer;
         Comment : String;
-        Product : Association to Products;
     }
 
     entity SelProducts   as select from Products;
@@ -168,4 +168,14 @@ context Sales {
         order by
             Rating;
 
+}
+
+context Reports {
+    entity AverageRating as
+        select from productsrv.Materials.ProductReview {
+            Product.ID  as ProductID,
+            AVG(Rating) as AverageRating : Decimal(16, 2)
+        }
+        group by
+            Product.ID;
 }

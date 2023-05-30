@@ -133,4 +133,19 @@ define service MyService {
             toSalesData.Currency.ID,
             toSalesData.Currency.Description
         from productsrv.Materials.Products;
+
+    entity EntityInfix       as
+        select Supplier[Name = 'Exotic Liquids'].Phone from productsrv.Materials.Products
+        where
+            Products.name = 'Bread';
+
+    entity EntityJoin        as
+        select Phone from productsrv.Materials.Products
+        left join productsrv.Sales.Suppliers as supp
+            on(
+                supp.ID = Products.Supplier.ID
+            )
+            and supp.Name = 'Exotic Liquids'
+        where
+            Products.name = 'Bread';
 }

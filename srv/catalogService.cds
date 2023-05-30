@@ -112,3 +112,25 @@ define service CatalogService {
         from productsrv.Materials.DimensionUnits;
 
 }
+
+
+define service MyService {
+
+    entity SupplierProducts  as
+        select from productsrv.Materials.Products[name = 'Bread']{
+            *,
+            name,
+            description,
+            Supplier.Address
+        }
+        where
+            Supplier.Address.PostalCode = '98074';
+
+    entity SupplierToSales   as
+        select
+            Supplier.Email,
+            Category.Name,
+            toSalesData.Currency.ID,
+            toSalesData.Currency.Description
+        from productsrv.Materials.Products;
+}

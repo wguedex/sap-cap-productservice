@@ -7,6 +7,14 @@ using {
 
 define type Dec : Decimal(16, 2);
 
+type Address {
+    Street     : String;
+    City       : String;
+    State      : String(2);
+    PostalCode : String(5);
+    Country    : String(3);
+}
+
 context Materials {
 
     entity Products : cuid, managed {
@@ -102,17 +110,18 @@ context Sales {
     }
 
     entity Suppliers : cuid {
-        Name       : type of Materials.Products : name;
-        Street     : String;
-        City       : String;
-        State      : String(2);
-        PostalCode : String(5);
-        Country    : String(3);
-        Email      : String;
-        Phone      : String;
-        Fax        : String;
-        Product    : Association to many Materials.Products
-                         on Product.Supplier = $self;
+        Name    : type of Materials.Products : name;
+        // Street     : String;
+        // City       : String;
+        // State      : String(2);
+        // PostalCode : String(5);
+        // Country    : String(3);
+        Address : Address;
+        Email   : String;
+        Phone   : String;
+        Fax     : String;
+        Product : Association to many Materials.Products
+                      on Product.Supplier = $self;
     }
 
     entity Months {

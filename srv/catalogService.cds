@@ -102,11 +102,11 @@ define service CatalogService {
             Description as Text
         };
 
+    //Postfix projections 
     @readonly
     entity VH_DimensionUnit  as
-        select from productsrv.Materials.DimensionUnits {
-            ID          as Code,
-            Description as Text
-        };
+        ID AS Code, 
+        Description as Text
+        select from productsrv.Materials.DimensionUnits;
 
 }

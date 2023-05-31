@@ -13,4 +13,10 @@ module.exports = (srv) => {
 
         return await SELECT.from(Orders2);
     });
+
+    srv.after("READ","GetOrders", (data) => {
+      return  data.map((order2) => {
+            order2.Reviewed = true
+        });
+    });
 };

@@ -159,4 +159,12 @@ define service MyService {
 
 define service Reports {
     entity AverageRating     as projection on productsrv.Reports.AverageRating;
+
+    entity EntityCasting     as
+        select
+            cast(
+                Price as      Integer
+            )     as Price,
+            Price as Price2 : Integer
+        from productsrv.Materials.Products;
 }

@@ -6,6 +6,11 @@ module.exports = (srv) => {
      * READ 
      */
     srv.on("READ", "GetOrders", async (req) => {
+
+        if (req.data.ClientEmail !== undefined){
+            return await SELECT.from`com.training.Orders2`.where`clientEmail = ${req.data.ClientEmail}`;
+        }
+
         return await SELECT.from(Orders2);
     });
 };

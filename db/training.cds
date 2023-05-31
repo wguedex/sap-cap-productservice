@@ -107,7 +107,7 @@ entity Suppliers_02 : cuid {
 }
 
 entity Orders2 {
-    key ClientEmail : String(65);
+    key ClientEmail : String;
         FirstName   : String(30);
         LastName    : String(30);
         CreatedOn   : Date;

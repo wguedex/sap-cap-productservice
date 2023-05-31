@@ -1,5 +1,5 @@
 using com.productsrv as productsrv from '../db/schema';
-using com.training as training from '../db/training';
+// using com.training as training from '../db/training';
 
 // service CatalogService {
 //     entity Products       as projection on productsrv.Materials.Products;
@@ -121,41 +121,41 @@ define service CatalogService {
 }
 
 
-define service MyService {
+// define service MyService {
 
-    entity SupplierProducts  as
-        select from productsrv.Materials.Products[name = 'Bread']{
-            *,
-            name,
-            description,
-            Supplier.Address
-        }
-        where
-            Supplier.Address.PostalCode = '98074';
+//     entity SupplierProducts  as
+//         select from productsrv.Materials.Products[name = 'Bread']{
+//             *,
+//             name,
+//             description,
+//             Supplier.Address
+//         }
+//         where
+//             Supplier.Address.PostalCode = '98074';
 
-    entity SupplierToSales   as
-        select
-            Supplier.Email,
-            Category.Name,
-            toSalesData.Currency.ID,
-            toSalesData.Currency.Description
-        from productsrv.Materials.Products;
+//     entity SupplierToSales   as
+//         select
+//             Supplier.Email,
+//             Category.Name,
+//             toSalesData.Currency.ID,
+//             toSalesData.Currency.Description
+//         from productsrv.Materials.Products;
 
-    entity EntityInfix       as
-        select Supplier[Name = 'Exotic Liquids'].Phone from productsrv.Materials.Products
-        where
-            Products.name = 'Bread';
+//     entity EntityInfix       as
+//         select Supplier[Name = 'Exotic Liquids'].Phone from productsrv.Materials.Products
+//         where
+//             Products.name = 'Bread';
 
-    entity EntityJoin        as
-        select Phone from productsrv.Materials.Products
-        left join productsrv.Sales.Suppliers as supp
-            on(
-                supp.ID = Products.Supplier.ID
-            )
-            and supp.Name = 'Exotic Liquids'
-        where
-            Products.name = 'Bread';
-}
+//     entity EntityJoin        as
+//         select Phone from productsrv.Materials.Products
+//         left join productsrv.Sales.Suppliers as supp
+//             on(
+//                 supp.ID = Products.Supplier.ID
+//             )
+//             and supp.Name = 'Exotic Liquids'
+//         where
+//             Products.name = 'Bread';
+// }
 
 define service Reports {
     entity AverageRating     as projection on productsrv.Reports.AverageRating;

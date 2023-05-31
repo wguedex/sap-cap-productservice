@@ -1,0 +1,3 @@
+####GET Orders2
+
+GET http://localhost:4004/manage-orders/GetOrders

@@ -1,5 +1,5 @@
 using com.training as training from '../db/training';
 
-service MyService {
+service ManageOrders {
     entity GetOrders as projection on training.Orders2;
 }

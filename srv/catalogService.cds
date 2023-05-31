@@ -167,4 +167,11 @@ define service Reports {
             )     as Price,
             Price as Price2 : Integer
         from productsrv.Materials.Products;
+
+    entity EntityExists      as
+        select from productsrv.Materials.Products {
+            name
+        }
+        where
+            exists Supplier[Name = 'Exotic Liquids'];
 }

@@ -19,19 +19,24 @@ using com.training as training from '../db/training';
 define service CatalogService {
 
     entity Products          as
-        select from productsrv.Materials.Products {
-            // ID,
-            // name           as ProductName      @mandatory,
-            // description                        @mandatory,
-            // ImageURL,
-            // ReleaseDate,
-            // DiscontinuedDate,
-            // Price                              @mandatory,
-            // Height,
-            // Width,
-            // Depth,
-            *,
-            Quantity,
+        select from productsrv.Reports.Products {
+            ID,
+            name           as ProductName      @mandatory,
+            description                        @mandatory,
+            ImageURL,
+            ReleaseDate,
+            DiscontinuedDate,
+            Price                              @mandatory,
+            Height,
+            Width,
+            Depth,
+            Quantity                           @(
+                mandatory,
+                assert.range: [
+                    0.00,
+                    20.00
+                ]
+            ),
             UnitOfMeasures as toUnitOfMeasures @mandatory,
             currency       as toCurrency       @mandatory,
             Category       as toCategory       @mandatory,
@@ -39,7 +44,9 @@ define service CatalogService {
             DimensionUnits as toDimensionUnit,
             toSalesData,
             Supplier,
-            Reviews
+            Reviews,
+            StockAvailability,
+            ToStockAvailibity
         };
 
     @readonly
@@ -151,7 +158,5 @@ define service MyService {
 }
 
 define service Reports {
-
     entity AverageRating     as projection on productsrv.Reports.AverageRating;
-
 }

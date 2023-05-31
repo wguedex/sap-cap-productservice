@@ -178,4 +178,31 @@ context Reports {
         }
         group by
             Product.ID;
+
+    entity Products      as
+        select from productsrv.Materials.Products
+        mixin {
+            ToStockAvailibity : Association to productsrv.Materials.stockAvailability
+                                     on ToStockAvailibity.ID = $projection.StockAvailability;
+            toAverageRating    : Association to AverageRating
+                                     on toAverageRating.ProductID = ID;
+        }
+        into {
+            *,
+            toAverageRating.AverageRating as Rating,
+            case
+                when
+                    Quantity >= 8
+                then
+                    3
+                when
+                    Quantity > 0
+                then
+                    2
+                else
+                    1
+            end                           as StockAvailability : Integer,
+            ToStockAvailibity
+
+        }
 }

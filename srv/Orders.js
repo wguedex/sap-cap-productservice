@@ -57,4 +57,32 @@ module.exports = (srv) => {
     req.data.CreatedOn = new Date().toISOString().slice(0, 10);
     return req;
   });
+
+  /**
+   * UPDATE
+   */
+  srv.on("UPDATE", "UpdateOrder", async (req) => {
+    let returnData = await cds
+      .transaction(req)
+      .run(
+        [
+        UPDATE(Orders2, req.data.ClientEmail).set({
+          FirstName: req.data.FirstName,
+          LastName: req.data.LastName,
+        })
+      ]
+      ).then((resolve, reject) => {
+        console.log("resolve");
+        console.log("reject");
+
+        if (resolve[0] == 0) {
+          req.error(409, "Record Not Found");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        req.error(err.code, err.message);
+      });
+    console.log("Before End", returnData);
+  });
 };

@@ -52,4 +52,9 @@ module.exports = (srv) => {
       });
     return returnData;
   });
+
+  srv.before("CREATE", "CreateOrder", (req) => {
+    req.data.CreatedOn = new Date().toISOString().slice(0, 10);
+    return req;
+  });
 };

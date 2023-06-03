@@ -3,4 +3,15 @@ GET http://localhost:4004/manage-orders/GetOrders
 
 ####GET Order2
 GET http://localhost:4004/manage-orders/GetOrders('client1@client1.com')
+
+####CREATE Order2
+POST http://localhost:4004/manage-orders/CreateOrder
+Content-Type: application/json
+
+{
+    "ClientEmail": "Client5@client5.com", 
+    "FirstName" : "Lorena", 
+    "LastName" : "Garcia",
+    "CreatedOn" : "2024-10-10"
+}
  

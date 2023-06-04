@@ -64,14 +64,13 @@ module.exports = (srv) => {
   srv.on("UPDATE", "UpdateOrder", async (req) => {
     let returnData = await cds
       .transaction(req)
-      .run(
-        [
+      .run([
         UPDATE(Orders2, req.data.ClientEmail).set({
           FirstName: req.data.FirstName,
           LastName: req.data.LastName,
-        })
-      ]
-      ).then((resolve, reject) => {
+        }),
+      ])
+      .then((resolve, reject) => {
         console.log("resolve");
         console.log("reject");
 
@@ -89,23 +88,51 @@ module.exports = (srv) => {
   /**
    * DELETE
    */
-  srv.on("DELETE","DeleteOrder", async (req) => {
-    let returnData = await cds.transaction(req).run(
-         DELETE.from(Orders2).where({
-            ClientEmail : req.data.ClientEmail 
-         })
-    ).then((res,rej) => {
+  srv.on("DELETE", "DeleteOrder", async (req) => {
+    let returnData = await cds
+      .transaction(req)
+      .run(
+        DELETE.from(Orders2).where({
+          ClientEmail: req.data.ClientEmail,
+        })
+      )
+      .then((res, rej) => {
         console.log("Resolve", res);
         console.log("Reject", rej);
         if (res !== 1) {
-            req.err(409,"Record Not Found")
+          req.err(409, "Record Not Found");
         }
-    }).catch((err) => {
+      })
+      .catch((err) => {
         console.log(err);
         req.error(err.code, err.message);
-    });
-    console.log("Before End",returnData);
+      });
+    console.log("Before End", returnData);
     return returnData;
   });
 
+  /**
+   * Functions
+   */
+  srv.on("getClientTaxRate", async (req) => {
+    //No server side-effect
+    const { ClientEmail } = req.data;
+    const db = srv.transaction(req);
+    const results = await db
+      // .read(Orders2, ["Country_Code as Country"])
+      .read(Orders2, ["Country_Code"])
+      .where({ ClientEmail: ClientEmail });
+
+    
+
+    switch (results[0].Country_code) {
+      case "ES":
+        return 21.5;
+        break;
+      case "UK":
+        return 24.6;
+        break; 
+    }
+    console.log(results[0]);
+  });
 };

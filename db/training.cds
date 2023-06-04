@@ -3,7 +3,8 @@ namespace com.training;
 
 using {
     cuid,
-    managed
+    managed, 
+    Country
 } from '@sap/cds/common';
 
 define type name       : String(50);
@@ -112,5 +113,6 @@ entity Orders2 {
         LastName    : String(30);
         CreatedOn   : Date;
         Reviewed    : Boolean;
-        Approved    : Boolean
+        Approved    : Boolean;
+        Country : Country
 }

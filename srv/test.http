@@ -26,3 +26,6 @@ Content-Type: application/json
 
 ####DELETE Order2
 DELETE http://localhost:4004/manage-orders/DeleteOrder('client4@client4.com') HTTP/1.1
+
+####GET Customer Rate - Function
+GET http://localhost:4004/manage-orders/getClientTaxRate(ClientEmail='client4@client4.com') HTTP/1.1

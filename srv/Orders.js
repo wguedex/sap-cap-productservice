@@ -2,6 +2,15 @@ const cds = require("@sap/cds");
 const { Orders2 } = cds.entities("com.training");
 
 module.exports = (srv) => {
+
+  /**
+   * BEFORE
+   */
+  srv.before("*", (req) => {
+    console.log(`Method: ${req.method}`);
+    console.log(`Target: ${req.target}`);
+  });
+
   /**
    * READ
    */

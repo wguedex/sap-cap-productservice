@@ -3,7 +3,7 @@ namespace com.training;
 
 using {
     cuid,
-    managed, 
+    managed,
     Country
 } from '@sap/cds/common';
 
@@ -114,5 +114,6 @@ entity Orders2 {
         CreatedOn   : Date;
         Reviewed    : Boolean;
         Approved    : Boolean;
-        Country : Country
+        Country     : Country;
+        Status      : String(1)
 }

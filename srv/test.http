@@ -29,3 +29,11 @@ DELETE http://localhost:4004/manage-orders/DeleteOrder('client4@client4.com') HT
 
 ####GET Customer Rate - Function
 GET http://localhost:4004/manage-orders/getClientTaxRate(ClientEmail='client4@client4.com') HTTP/1.1
+
+####Cancel Order - Action 
+POST http://localhost:4004/manage-orders/CancelOrder  
+Content-Type: application/json
+
+{
+    "ClientEmail" : "client2@client2.com"
+}

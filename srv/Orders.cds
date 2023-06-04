@@ -4,4 +4,5 @@ service ManageOrders {
     entity GetOrders   as projection on training.Orders2;
     entity CreateOrder as projection on training.Orders2;
     entity UpdateOrder as projection on training.Orders2;
+    entity DeleteOrder as projection on training.Orders2;
 }

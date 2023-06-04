@@ -85,4 +85,27 @@ module.exports = (srv) => {
       });
     console.log("Before End", returnData);
   });
+
+  /**
+   * DELETE
+   */
+  srv.on("DELETE","DeleteOrder", async (req) => {
+    let returnData = await cds.transaction(req).run(
+         DELETE.from(Orders2).where({
+            ClientEmail : req.data.ClientEmail 
+         })
+    ).then((res,rej) => {
+        console.log("Resolve", res);
+        console.log("Reject", rej);
+        if (res !== 1) {
+            req.err(409,"Record Not Found")
+        }
+    }).catch((err) => {
+        console.log(err);
+        req.error(err.code, err.message);
+    });
+    console.log("Before End",returnData);
+    return returnData;
+  });
+
 };

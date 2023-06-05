@@ -1,0 +1,1373 @@
+{
+  "meta": {
+    "creator": "cds-dk 6.8.1"
+  },
+  "$version": "2.0",
+  "definitions": {
+    "sapbackend": {
+      "kind": "service",
+      "@cds.external": true,
+      "@m.IsDefaultEntityContainer": "true",
+      "@sap.supported.formats": "atom json xlsx"
+    },
+    "sapbackend.BusinessPartnerSet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.content.version": "1",
+      "elements": {
+        "BusinessPartnerID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10,
+          "@sap.unicode": "false",
+          "@sap.label": "Bus. Part. ID",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "notNull": true
+        },
+        "Address": {
+          "type": "sapbackend.CT_Address",
+          "notNull": true
+        },
+        "CompanyName": {
+          "type": "cds.String",
+          "length": 80,
+          "@sap.unicode": "false",
+          "@sap.label": "Company Name",
+          "notNull": true
+        },
+        "WebAddress": {
+          "type": "cds.LargeString",
+          "@sap.unicode": "false",
+          "@sap.label": "Web Address",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "@sap.semantics": "url"
+        },
+        "EmailAddress": {
+          "type": "cds.String",
+          "length": 255,
+          "@sap.unicode": "false",
+          "@sap.label": "E-Mail Address",
+          "@sap.semantics": "email",
+          "notNull": true
+        },
+        "PhoneNumber": {
+          "type": "cds.String",
+          "length": 30,
+          "@sap.unicode": "false",
+          "@sap.label": "Phone No.",
+          "@sap.semantics": "tel"
+        },
+        "FaxNumber": {
+          "type": "cds.String",
+          "length": 30,
+          "@sap.unicode": "false",
+          "@sap.label": "Fax Number"
+        },
+        "LegalForm": {
+          "type": "cds.String",
+          "length": 10,
+          "@sap.unicode": "false",
+          "@sap.label": "Legal Form"
+        },
+        "CurrencyCode": {
+          "type": "cds.String",
+          "length": 5,
+          "@sap.unicode": "false",
+          "@sap.label": "Currency",
+          "@sap.semantics": "currency-code",
+          "notNull": true
+        },
+        "BusinessPartnerRole": {
+          "type": "cds.String",
+          "length": 3,
+          "@sap.unicode": "false",
+          "@sap.label": "Bus. Part. Role",
+          "notNull": true
+        },
+        "CreatedAt": {
+          "type": "cds.Timestamp",
+          "@odata.Type": "Edm.DateTime",
+          "@odata.Precision": 7,
+          "@sap.unicode": "false",
+          "@sap.label": "Time Stamp",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "ChangedAt": {
+          "type": "cds.Timestamp",
+          "@odata.Type": "Edm.DateTime",
+          "@odata.Precision": 7,
+          "@sap.unicode": "false",
+          "@sap.label": "Time Stamp",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "ToSalesOrders": {
+          "@cds.ambiguous": "missing on condition?",
+          "type": "cds.Association",
+          "target": "sapbackend.SalesOrderSet",
+          "cardinality": {
+            "max": "*"
+          },
+          "on": [
+            {
+              "ref": [
+                "ToSalesOrders",
+                "CustomerID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "BusinessPartnerID"
+              ]
+            }
+          ]
+        },
+        "ToContacts": {
+          "@cds.ambiguous": "missing on condition?",
+          "type": "cds.Association",
+          "target": "sapbackend.ContactSet",
+          "cardinality": {
+            "max": "*"
+          },
+          "on": [
+            {
+              "ref": [
+                "ToContacts",
+                "BusinessPartnerID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "BusinessPartnerID"
+              ]
+            }
+          ]
+        },
+        "ToProducts": {
+          "@cds.ambiguous": "missing on condition?",
+          "type": "cds.Association",
+          "target": "sapbackend.ProductSet",
+          "cardinality": {
+            "max": "*"
+          },
+          "on": [
+            {
+              "ref": [
+                "ToProducts",
+                "SupplierID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "BusinessPartnerID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sapbackend.ProductSet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.content.version": "1",
+      "elements": {
+        "ProductID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10,
+          "@sap.unicode": "false",
+          "@sap.label": "Product ID",
+          "@sap.updatable": "false",
+          "notNull": true
+        },
+        "TypeCode": {
+          "type": "cds.String",
+          "length": 2,
+          "@sap.unicode": "false",
+          "@sap.label": "Prod. Type Code",
+          "notNull": true
+        },
+        "Category": {
+          "type": "cds.String",
+          "length": 40,
+          "@sap.unicode": "false",
+          "@sap.label": "Prod. Cat.",
+          "notNull": true
+        },
+        "Name": {
+          "type": "cds.String",
+          "length": 255,
+          "@sap.unicode": "false",
+          "@sap.label": "Product Name",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        },
+        "NameLanguage": {
+          "type": "cds.String",
+          "length": 2,
+          "@sap.unicode": "false",
+          "@sap.label": "Language",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false"
+        },
+        "Description": {
+          "type": "cds.String",
+          "length": 255,
+          "@sap.unicode": "false",
+          "@sap.label": "Prod.Descrip.",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false"
+        },
+        "DescriptionLanguage": {
+          "type": "cds.String",
+          "length": 2,
+          "@sap.unicode": "false",
+          "@sap.label": "Language",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false"
+        },
+        "SupplierID": {
+          "type": "cds.String",
+          "length": 10,
+          "@sap.unicode": "false",
+          "@sap.label": "Bus. Part. ID",
+          "notNull": true
+        },
+        "SupplierName": {
+          "type": "cds.String",
+          "length": 80,
+          "@sap.unicode": "false",
+          "@sap.label": "Company Name",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "TaxTarifCode": {
+          "type": "cds.Integer",
+          "@odata.Type": "Edm.Byte",
+          "@sap.unicode": "false",
+          "@sap.label": "Prod. Tax Code",
+          "notNull": true
+        },
+        "MeasureUnit": {
+          "type": "cds.String",
+          "length": 3,
+          "@sap.unicode": "false",
+          "@sap.label": "Qty. Unit",
+          "@sap.semantics": "unit-of-measure",
+          "notNull": true
+        },
+        "WeightMeasure": {
+          "type": "cds.Decimal",
+          "precision": 13,
+          "scale": 3,
+          "@sap.unicode": "false",
+          "@sap.unit": "WeightUnit",
+          "@sap.label": "Wt. Measure"
+        },
+        "WeightUnit": {
+          "type": "cds.String",
+          "length": 3,
+          "@sap.unicode": "false",
+          "@sap.label": "Qty. Unit",
+          "@sap.semantics": "unit-of-measure"
+        },
+        "CurrencyCode": {
+          "type": "cds.String",
+          "length": 5,
+          "@sap.unicode": "false",
+          "@sap.label": "Currency",
+          "@sap.semantics": "currency-code",
+          "notNull": true
+        },
+        "Price": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3,
+          "@sap.unicode": "false",
+          "@sap.unit": "CurrencyCode",
+          "@sap.label": "Unit Price"
+        },
+        "Width": {
+          "type": "cds.Decimal",
+          "precision": 13,
+          "scale": 3,
+          "@sap.unicode": "false",
+          "@sap.unit": "DimUnit",
+          "@sap.label": "Dimensions"
+        },
+        "Depth": {
+          "type": "cds.Decimal",
+          "precision": 13,
+          "scale": 3,
+          "@sap.unicode": "false",
+          "@sap.unit": "DimUnit",
+          "@sap.label": "Dimensions"
+        },
+        "Height": {
+          "type": "cds.Decimal",
+          "precision": 13,
+          "scale": 3,
+          "@sap.unicode": "false",
+          "@sap.unit": "DimUnit",
+          "@sap.label": "Dimensions"
+        },
+        "DimUnit": {
+          "type": "cds.String",
+          "length": 3,
+          "@sap.unicode": "false",
+          "@sap.label": "Dim. Unit",
+          "@sap.semantics": "unit-of-measure"
+        },
+        "CreatedAt": {
+          "type": "cds.Timestamp",
+          "@odata.Type": "Edm.DateTime",
+          "@odata.Precision": 7,
+          "@sap.unicode": "false",
+          "@sap.label": "Time Stamp",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "ChangedAt": {
+          "type": "cds.Timestamp",
+          "@odata.Type": "Edm.DateTime",
+          "@odata.Precision": 7,
+          "@sap.unicode": "false",
+          "@sap.label": "Time Stamp",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "ToSupplier": {
+          "@cds.ambiguous": "missing on condition?",
+          "type": "cds.Association",
+          "target": "sapbackend.BusinessPartnerSet",
+          "on": [
+            {
+              "ref": [
+                "ToSupplier",
+                "BusinessPartnerID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "SupplierID"
+              ]
+            }
+          ]
+        },
+        "ToSalesOrderLineItems": {
+          "@cds.ambiguous": "missing on condition?",
+          "type": "cds.Association",
+          "target": "sapbackend.SalesOrderLineItemSet",
+          "cardinality": {
+            "max": "*"
+          },
+          "on": [
+            {
+              "ref": [
+                "ToSalesOrderLineItems",
+                "ProductID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ProductID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sapbackend.SalesOrderSet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.updatable": "false",
+      "@sap.content.version": "1",
+      "elements": {
+        "SalesOrderID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10,
+          "@sap.unicode": "false",
+          "@sap.label": "Sa. Ord. ID",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "notNull": true
+        },
+        "Note": {
+          "type": "cds.String",
+          "length": 255,
+          "@sap.unicode": "false",
+          "@sap.label": "Description",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false"
+        },
+        "NoteLanguage": {
+          "type": "cds.String",
+          "length": 2,
+          "@sap.unicode": "false",
+          "@sap.label": "Language",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false"
+        },
+        "CustomerID": {
+          "type": "cds.String",
+          "length": 10,
+          "@sap.unicode": "false",
+          "@sap.label": "Bus. Part. ID",
+          "@sap.updatable": "false",
+          "notNull": true
+        },
+        "CustomerName": {
+          "type": "cds.String",
+          "length": 80,
+          "@sap.unicode": "false",
+          "@sap.label": "Company Name",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "CurrencyCode": {
+          "type": "cds.String",
+          "length": 5,
+          "@sap.unicode": "false",
+          "@sap.label": "Currency",
+          "@sap.updatable": "false",
+          "@sap.semantics": "currency-code"
+        },
+        "GrossAmount": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3,
+          "@sap.unicode": "false",
+          "@sap.unit": "CurrencyCode",
+          "@sap.label": "Gross Amt.",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "NetAmount": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3,
+          "@sap.unicode": "false",
+          "@sap.unit": "CurrencyCode",
+          "@sap.label": "Net Amt.",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "TaxAmount": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3,
+          "@sap.unicode": "false",
+          "@sap.unit": "CurrencyCode",
+          "@sap.label": "Tax Amt.",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "LifecycleStatus": {
+          "type": "cds.String",
+          "length": 1,
+          "@sap.unicode": "false",
+          "@sap.label": "PO Lifecycle",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "LifecycleStatusDescription": {
+          "type": "cds.String",
+          "length": 60,
+          "@sap.unicode": "false",
+          "@sap.label": "Lifecycle Descript.",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false"
+        },
+        "BillingStatus": {
+          "type": "cds.String",
+          "length": 1,
+          "@sap.unicode": "false",
+          "@sap.label": "PO Confirmation",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "BillingStatusDescription": {
+          "type": "cds.String",
+          "length": 60,
+          "@sap.unicode": "false",
+          "@sap.label": "Billing Description",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false"
+        },
+        "DeliveryStatus": {
+          "type": "cds.String",
+          "length": 1,
+          "@sap.unicode": "false",
+          "@sap.label": "PO Ordering",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "DeliveryStatusDescription": {
+          "type": "cds.String",
+          "length": 60,
+          "@sap.unicode": "false",
+          "@sap.label": "Delivery Description",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false"
+        },
+        "CreatedAt": {
+          "type": "cds.Timestamp",
+          "@odata.Type": "Edm.DateTime",
+          "@odata.Precision": 7,
+          "@sap.unicode": "false",
+          "@sap.label": "Time Stamp",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "ChangedAt": {
+          "type": "cds.Timestamp",
+          "@odata.Type": "Edm.DateTime",
+          "@odata.Precision": 7,
+          "@sap.unicode": "false",
+          "@sap.label": "Time Stamp",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "ToBusinessPartner": {
+          "@cds.ambiguous": "missing on condition?",
+          "type": "cds.Association",
+          "target": "sapbackend.BusinessPartnerSet",
+          "on": [
+            {
+              "ref": [
+                "ToBusinessPartner",
+                "BusinessPartnerID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "CustomerID"
+              ]
+            }
+          ]
+        },
+        "ToLineItems": {
+          "@cds.ambiguous": "missing on condition?",
+          "type": "cds.Association",
+          "target": "sapbackend.SalesOrderLineItemSet",
+          "cardinality": {
+            "max": "*"
+          },
+          "on": [
+            {
+              "ref": [
+                "ToLineItems",
+                "SalesOrderID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "SalesOrderID"
+              ]
+            }
+          ]
+        }
+      },
+      "actions": {
+        "SalesOrder_Confirm": {
+          "kind": "action",
+          "returns": {
+            "type": "sapbackend.SalesOrderSet"
+          }
+        },
+        "SalesOrder_Cancel": {
+          "kind": "action",
+          "returns": {
+            "type": "sapbackend.SalesOrderSet"
+          }
+        },
+        "SalesOrder_InvoiceCreated": {
+          "kind": "action",
+          "returns": {
+            "type": "sapbackend.SalesOrderSet"
+          }
+        },
+        "SalesOrder_GoodsIssueCreated": {
+          "kind": "action",
+          "returns": {
+            "type": "sapbackend.SalesOrderSet"
+          }
+        }
+      }
+    },
+    "sapbackend.SalesOrderLineItemSet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.content.version": "1",
+      "elements": {
+        "SalesOrderID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10,
+          "@sap.unicode": "false",
+          "@sap.label": "Sa. Ord. ID",
+          "@sap.updatable": "false",
+          "notNull": true
+        },
+        "ItemPosition": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10,
+          "@sap.unicode": "false",
+          "@sap.label": "PO Item Pos",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "notNull": true
+        },
+        "ProductID": {
+          "type": "cds.String",
+          "length": 10,
+          "@sap.unicode": "false",
+          "@sap.label": "Product ID",
+          "notNull": true
+        },
+        "Note": {
+          "type": "cds.String",
+          "length": 255,
+          "@sap.unicode": "false",
+          "@sap.label": "Description",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false"
+        },
+        "NoteLanguage": {
+          "type": "cds.String",
+          "length": 2,
+          "@sap.unicode": "false",
+          "@sap.label": "Language",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false"
+        },
+        "CurrencyCode": {
+          "type": "cds.String",
+          "length": 5,
+          "@sap.unicode": "false",
+          "@sap.label": "Currency",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.semantics": "currency-code"
+        },
+        "GrossAmount": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3,
+          "@sap.unicode": "false",
+          "@sap.unit": "CurrencyCode",
+          "@sap.label": "Gross Amt.",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "NetAmount": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3,
+          "@sap.unicode": "false",
+          "@sap.unit": "CurrencyCode",
+          "@sap.label": "Net Amt.",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "TaxAmount": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3,
+          "@sap.unicode": "false",
+          "@sap.unit": "CurrencyCode",
+          "@sap.label": "Tax Amt.",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false"
+        },
+        "DeliveryDate": {
+          "type": "cds.Timestamp",
+          "@odata.Type": "Edm.DateTime",
+          "@odata.Precision": 7,
+          "@sap.unicode": "false",
+          "@sap.label": "Time Stamp",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        },
+        "Quantity": {
+          "type": "cds.Decimal",
+          "precision": 13,
+          "scale": 3,
+          "@sap.unicode": "false",
+          "@sap.unit": "QuantityUnit",
+          "@sap.label": "Quantity",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        },
+        "QuantityUnit": {
+          "type": "cds.String",
+          "length": 3,
+          "@sap.unicode": "false",
+          "@sap.label": "Qty. Unit",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "@sap.semantics": "unit-of-measure"
+        },
+        "ToHeader": {
+          "@cds.ambiguous": "missing on condition?",
+          "type": "cds.Association",
+          "target": "sapbackend.SalesOrderSet",
+          "on": [
+            {
+              "ref": [
+                "ToHeader",
+                "SalesOrderID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "SalesOrderID"
+              ]
+            }
+          ]
+        },
+        "ToProduct": {
+          "@cds.ambiguous": "missing on condition?",
+          "type": "cds.Association",
+          "target": "sapbackend.ProductSet",
+          "on": [
+            {
+              "ref": [
+                "ToProduct",
+                "ProductID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ProductID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sapbackend.ContactSet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.content.version": "1",
+      "elements": {
+        "ContactGuid": {
+          "key": true,
+          "type": "cds.UUID",
+          "@sap.unicode": "false",
+          "@sap.label": "Contact GUID",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "notNull": true
+        },
+        "Address": {
+          "type": "sapbackend.CT_Address",
+          "notNull": true
+        },
+        "BusinessPartnerID": {
+          "type": "cds.String",
+          "length": 10,
+          "@sap.unicode": "false",
+          "@sap.label": "Bus. Part. ID",
+          "@sap.updatable": "false",
+          "notNull": true
+        },
+        "Title": {
+          "type": "cds.String",
+          "length": 10,
+          "@sap.unicode": "false",
+          "@sap.label": "Title"
+        },
+        "FirstName": {
+          "type": "cds.String",
+          "length": 40,
+          "@sap.unicode": "false",
+          "@sap.label": "First Name",
+          "@sap.semantics": "givenname",
+          "notNull": true
+        },
+        "MiddleName": {
+          "type": "cds.String",
+          "length": 40,
+          "@sap.unicode": "false",
+          "@sap.label": "Middle Name",
+          "@sap.semantics": "middlename"
+        },
+        "LastName": {
+          "type": "cds.String",
+          "length": 40,
+          "@sap.unicode": "false",
+          "@sap.label": "Last Name",
+          "@sap.semantics": "familyname"
+        },
+        "Nickname": {
+          "type": "cds.String",
+          "length": 40,
+          "@sap.unicode": "false",
+          "@sap.label": "Nickname",
+          "@sap.semantics": "nickname"
+        },
+        "Initials": {
+          "type": "cds.String",
+          "length": 10,
+          "@sap.unicode": "false",
+          "@sap.label": "Initials"
+        },
+        "Sex": {
+          "type": "cds.String",
+          "length": 1,
+          "@sap.unicode": "false",
+          "@sap.label": "Sex",
+          "notNull": true
+        },
+        "PhoneNumber": {
+          "type": "cds.String",
+          "length": 30,
+          "@sap.unicode": "false",
+          "@sap.label": "Phone No.",
+          "@sap.semantics": "tel"
+        },
+        "FaxNumber": {
+          "type": "cds.String",
+          "length": 30,
+          "@sap.unicode": "false",
+          "@sap.label": "Fax Number"
+        },
+        "EmailAddress": {
+          "type": "cds.String",
+          "length": 255,
+          "@sap.unicode": "false",
+          "@sap.label": "E-Mail Address",
+          "@sap.semantics": "email"
+        },
+        "Language": {
+          "type": "cds.String",
+          "length": 2,
+          "@sap.unicode": "false",
+          "@sap.label": "Language Key"
+        },
+        "DateOfBirth": {
+          "type": "cds.Timestamp",
+          "@odata.Type": "Edm.DateTime",
+          "@odata.Precision": 7,
+          "@sap.unicode": "false",
+          "@sap.label": "Date of Birth",
+          "@sap.semantics": "bday"
+        },
+        "ToBusinessPartner": {
+          "@cds.ambiguous": "missing on condition?",
+          "type": "cds.Association",
+          "target": "sapbackend.BusinessPartnerSet",
+          "on": [
+            {
+              "ref": [
+                "ToBusinessPartner",
+                "BusinessPartnerID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "BusinessPartnerID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sapbackend.VH_SexSet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.pageable": "false",
+      "@sap.content.version": "1",
+      "elements": {
+        "Sex": {
+          "key": true,
+          "type": "cds.String",
+          "length": 1,
+          "@sap.unicode": "false",
+          "@sap.label": "Sex",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        },
+        "Shorttext": {
+          "type": "cds.String",
+          "length": 60,
+          "@sap.unicode": "false",
+          "@sap.label": "Short Descript.",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        }
+      }
+    },
+    "sapbackend.VH_CountrySet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.pageable": "false",
+      "@sap.content.version": "1",
+      "elements": {
+        "Land1": {
+          "key": true,
+          "type": "cds.String",
+          "length": 3,
+          "@sap.unicode": "false",
+          "@sap.label": "Country",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        },
+        "Landx": {
+          "type": "cds.String",
+          "length": 15,
+          "@sap.unicode": "false",
+          "@sap.label": "Name",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        },
+        "Natio": {
+          "type": "cds.String",
+          "length": 15,
+          "@sap.unicode": "false",
+          "@sap.label": "Nationality",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        }
+      }
+    },
+    "sapbackend.VH_AddressTypeSet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.pageable": "false",
+      "@sap.content.version": "1",
+      "elements": {
+        "AddressType": {
+          "key": true,
+          "type": "cds.String",
+          "length": 2,
+          "@sap.unicode": "false",
+          "@sap.label": "Address Type",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        },
+        "Shorttext": {
+          "type": "cds.String",
+          "length": 60,
+          "@sap.unicode": "false",
+          "@sap.label": "Short Descript.",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        }
+      }
+    },
+    "sapbackend.VH_CategorySet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.pageable": "false",
+      "@sap.content.version": "1",
+      "elements": {
+        "Category": {
+          "key": true,
+          "type": "cds.String",
+          "length": 40,
+          "@sap.unicode": "false",
+          "@sap.label": "Prod. Cat.",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        }
+      }
+    },
+    "sapbackend.VH_CurrencySet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.pageable": "false",
+      "@sap.content.version": "1",
+      "elements": {
+        "Waers": {
+          "key": true,
+          "type": "cds.String",
+          "length": 5,
+          "@sap.unicode": "false",
+          "@sap.label": "Currency",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "@sap.semantics": "currency-code",
+          "notNull": true
+        },
+        "Ltext": {
+          "type": "cds.String",
+          "length": 40,
+          "@sap.unicode": "false",
+          "@sap.label": "Long Text",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        }
+      }
+    },
+    "sapbackend.VH_UnitQuantitySet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.pageable": "false",
+      "@sap.content.version": "1",
+      "elements": {
+        "Msehi": {
+          "key": true,
+          "type": "cds.String",
+          "length": 3,
+          "@sap.unicode": "false",
+          "@sap.label": "Int. meas. unit",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "@sap.semantics": "unit-of-measure",
+          "notNull": true
+        },
+        "Msehl": {
+          "type": "cds.String",
+          "length": 30,
+          "@sap.unicode": "false",
+          "@sap.label": "Unit text",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        }
+      }
+    },
+    "sapbackend.VH_UnitWeightSet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.pageable": "false",
+      "@sap.content.version": "1",
+      "elements": {
+        "Msehi": {
+          "key": true,
+          "type": "cds.String",
+          "length": 3,
+          "@sap.unicode": "false",
+          "@sap.label": "Int. meas. unit",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "@sap.semantics": "unit-of-measure",
+          "notNull": true
+        },
+        "Msehl": {
+          "type": "cds.String",
+          "length": 30,
+          "@sap.unicode": "false",
+          "@sap.label": "Unit text",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        }
+      }
+    },
+    "sapbackend.VH_UnitLengthSet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.pageable": "false",
+      "@sap.content.version": "1",
+      "elements": {
+        "Msehi": {
+          "key": true,
+          "type": "cds.String",
+          "length": 3,
+          "@sap.unicode": "false",
+          "@sap.label": "Int. meas. unit",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "@sap.semantics": "unit-of-measure",
+          "notNull": true
+        },
+        "Msehl": {
+          "type": "cds.String",
+          "length": 30,
+          "@sap.unicode": "false",
+          "@sap.label": "Unit text",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        }
+      }
+    },
+    "sapbackend.VH_ProductTypeCodeSet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.pageable": "false",
+      "@sap.content.version": "1",
+      "elements": {
+        "TypeCode": {
+          "key": true,
+          "type": "cds.String",
+          "length": 2,
+          "@sap.unicode": "false",
+          "@sap.label": "Prod. Type Code",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        },
+        "Shorttext": {
+          "type": "cds.String",
+          "length": 60,
+          "@sap.unicode": "false",
+          "@sap.label": "Short Descript.",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        }
+      }
+    },
+    "sapbackend.VH_BPRoleSet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.pageable": "false",
+      "@sap.content.version": "1",
+      "elements": {
+        "BpRole": {
+          "key": true,
+          "type": "cds.String",
+          "length": 3,
+          "@sap.unicode": "false",
+          "@sap.label": "Bus. Part. Role",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        },
+        "Shorttext": {
+          "type": "cds.String",
+          "length": 60,
+          "@sap.unicode": "false",
+          "@sap.label": "Short Descript.",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        }
+      }
+    },
+    "sapbackend.VH_LanguageSet": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.pageable": "false",
+      "@sap.content.version": "1",
+      "elements": {
+        "Spras": {
+          "key": true,
+          "type": "cds.String",
+          "length": 2,
+          "@sap.unicode": "false",
+          "@sap.label": "Language",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        },
+        "Sptxt": {
+          "type": "cds.String",
+          "length": 16,
+          "@sap.unicode": "false",
+          "@sap.label": "Name",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        }
+      }
+    },
+    "sapbackend.CT_Address": {
+      "kind": "type",
+      "@cds.external": true,
+      "elements": {
+        "City": {
+          "type": "cds.String",
+          "length": 40,
+          "@sap.label": "City",
+          "@sap.semantics": "city"
+        },
+        "PostalCode": {
+          "type": "cds.String",
+          "length": 10,
+          "@sap.label": "Postal Code",
+          "@sap.semantics": "zip"
+        },
+        "Street": {
+          "type": "cds.String",
+          "length": 60,
+          "@sap.label": "Street",
+          "@sap.semantics": "street"
+        },
+        "Building": {
+          "type": "cds.String",
+          "length": 10,
+          "@sap.label": "Building"
+        },
+        "Country": {
+          "type": "cds.String",
+          "length": 3,
+          "@sap.label": "Country",
+          "@sap.semantics": "country"
+        },
+        "AddressType": {
+          "type": "cds.String",
+          "length": 2,
+          "@sap.label": "Address Type"
+        }
+      }
+    },
+    "sapbackend.CT_String": {
+      "kind": "type",
+      "@cds.external": true,
+      "elements": {
+        "String": {
+          "type": "cds.LargeString",
+          "@sap.creatable": "false",
+          "@sap.updatable": "false",
+          "@sap.sortable": "false",
+          "@sap.filterable": "false",
+          "notNull": true
+        }
+      }
+    },
+    "sapbackend.RegenerateAllData": {
+      "kind": "action",
+      "@cds.external": true,
+      "params": {
+        "NoOfSalesOrders": {
+          "type": "cds.Integer"
+        }
+      },
+      "returns": {
+        "type": "sapbackend.CT_String"
+      }
+    }
+  }
+}

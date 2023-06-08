@@ -15,11 +15,16 @@
     "express": "^4"
   },
   "devDependencies": {
+    "@sap/eslint-plugin-ui5-jsdocs": "^2.0.5",
+    "@sap/ux-specification": "^1.108.7",
+    "@sapui5/ts-types": "^1.92.2",
     "cds-swagger-ui-express": "^0.6.0",
+    "eslint": "^7.32.0",
     "sqlite3": "^5.1.6"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve",
+    "watch-product": "cds watch --open product/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {
@@ -46,5 +51,8 @@
         }
       }
     }
-  }
+  },
+  "sapux": [
+    "app/product"
+  ]
 }

@@ -6,10 +6,16 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@cap-js/graphql": "^0.5.0",
+    "@sap-cloud-sdk/http-client": "^3.2.0",
     "@sap/cds": "^6",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
+    "cors": "^2.8.5",
+    "dotenv": "^16.1.4",
     "express": "^4"
   },
   "devDependencies": {
+    "cds-swagger-ui-express": "^0.6.0",
     "sqlite3": "^5.1.6"
   },
   "scripts": {
@@ -17,9 +23,19 @@
   },
   "cds": {
     "requires": {
+      "protocols": {
+        "graphql": {
+          "path": "/graphql",
+          "impl": "@cap-js/graphql"
+        }
+      },
       "sapbackend": {
         "kind": "odata-v2",
-        "model": "srv/external/sapbackend"
+        "model": "srv/external/sapbackend",
+        "credentials": {
+          "requestTimeout": 30000,
+          "url": "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/"
+        }
       }
     }
   }

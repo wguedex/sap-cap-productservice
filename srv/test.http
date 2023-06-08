@@ -37,3 +37,6 @@ Content-Type: application/json
 {
     "ClientEmail" : "client2@client2.com"
 }
+
+####GET BusinessPartner
+GET http://localhost:4004/sapbackend-exit/BusinessPartner

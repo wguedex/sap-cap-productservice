@@ -36,6 +36,14 @@
           "requestTimeout": 30000,
           "url": "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/"
         }
+      },
+      "incidents": {
+        "kind": "odata-v2",
+        "model": "srv/external/incidents",
+        "credentials": {
+          "requestTimeout": 30000,
+          "url": "http://erp13.sap4practice.com:9037/sap/opu/odata/sap/YSAPUI5_SRV_01/"
+        }
       }
     }
   }

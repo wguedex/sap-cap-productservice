@@ -1,4 +1,5 @@
 using {sapbackend as external} from './external/sapbackend';
+using {incidents as external2} from './external/incidents';
 
 define service SAPBackendExit {
 
@@ -14,6 +15,9 @@ define service SAPBackendExit {
             CompanyName,
             EmailAddress
         };
+
+    // entity Incidents as select from external2.IncidentsSet;
+    entity Incidents as projection on external2.IncidentsSet;
 
 // entity BusinessPartner as projection on external.BusinessPartnerSet;
 }

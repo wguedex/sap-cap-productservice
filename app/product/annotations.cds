@@ -1,6 +1,13 @@
 using CatalogService as service from '../../srv/catalogService';
 
 annotate service.Products with @(
+
+    UI.SelectionFields : [
+        toCategory_ID, 
+        toCurrency_ID, 
+        StockAvailability
+    ],
+
     UI.LineItem : [
         {
             $Type : 'UI.DataField',

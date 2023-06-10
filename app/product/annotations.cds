@@ -2,6 +2,13 @@ using CatalogService as service from '../../srv/catalogService';
 
 annotate service.Products with @(
 
+    Capabilities : {
+        DeleteRestrictions: {
+            $Type    : 'Capabilities.DeleteRestrictionsType',
+            Deletable: false
+        }
+    },
+
     UI.HeaderInfo     : {
         TypeName      : 'Product',
         TypeNamePlural: 'Products',
@@ -150,11 +157,11 @@ annotate service.Products with @(
                 Label: 'Stock Availability',
                 Value: StockAvailability
             },
-            // {
-            //     Label : 'Rating',
-            //     $Type : 'UI.DataFieldForAnnotation',
-            //     Target: '@UI.DataPoint#AverageRating'
-            // }
+        // {
+        //     Label : 'Rating',
+        //     $Type : 'UI.DataFieldForAnnotation',
+        //     Target: '@UI.DataPoint#AverageRating'
+        // }
         ],
     },
     UI.Facets                     : [

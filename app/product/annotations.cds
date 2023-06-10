@@ -150,19 +150,33 @@ annotate service.Products with @(
                 Label: 'Stock Availability',
                 Value: StockAvailability
             },
-            {
-                Label : 'Rating',
-                $Type : 'UI.DataFieldForAnnotation',
-                Target: '@UI.DataPoint#AverageRating'
-            }
+            // {
+            //     Label : 'Rating',
+            //     $Type : 'UI.DataFieldForAnnotation',
+            //     Target: '@UI.DataPoint#AverageRating'
+            // }
         ],
     },
-    UI.Facets                     : [{
+    UI.Facets                     : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID    : 'GeneratedFacet1',
+            Label : 'General Information',
+            Target: '@UI.FieldGroup#GeneratedGroup1',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID    : 'GeneratedFacet2',
+            Label : 'General Information Copia',
+            Target: '@UI.FieldGroup#GeneratedGroup1',
+        }
+    ],
+
+    UI.HeaderFacets               : [{
         $Type : 'UI.ReferenceFacet',
-        ID    : 'GeneratedFacet1',
-        Label : 'General Information',
-        Target: '@UI.FieldGroup#GeneratedGroup1',
-    }, ]
+        Target: '@UI.DataPoint#AverageRating'
+    }]
+
 );
 
 /**
@@ -290,7 +304,7 @@ annotate service.Supplier with @(Communication: {Contact: {
 
 
 annotate service.Products with @(UI.DataPoint #AverageRating: {
-    Value        :  Rating,
+    Value        : Rating,
     Title        : 'Rating',
     TargetValue  : 5,
     Visualization: #Rating

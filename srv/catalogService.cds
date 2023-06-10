@@ -44,9 +44,9 @@ define service CatalogService {
             DimensionUnits as toDimensionUnit,
             toSalesData,
             Supplier,
-            Reviews,
             StockAvailability,
-            ToStockAvailibity
+            ToStockAvailibity,
+            Reviews.Rating as Rating,
         };
 
     @readonly
@@ -158,6 +158,9 @@ define service CatalogService {
 // }
 
 define service Reports {
+    // entity AverageRating     as projection on productsrv.Reports.AverageRating;
+
+    @cds.redirection.target
     entity AverageRating     as projection on productsrv.Reports.AverageRating;
 
     entity EntityCasting     as

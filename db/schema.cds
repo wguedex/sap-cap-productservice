@@ -23,7 +23,7 @@ context Materials {
         ImageURL         : String;
         ReleaseDate      : DateTime default $now;
         DiscontinuedDate : DateTime;
-        Price            : Dec;
+        Price            : Dec; 
         Height           : type of Price;
         Width            : Decimal(16, 2);
         Depth            : Decimal(16, 2);
@@ -37,6 +37,7 @@ context Materials {
                                on toSalesData.Product = $self;
         Reviews          : Association to many ProductReview
                                on Reviews.Product = $self;
+                               
 
     }
 
@@ -67,10 +68,10 @@ context Materials {
     }
 
     entity ProductReview : cuid, managed {
-        Product : Association to Products;
-        Name    : String;
-        Rating  : Integer;
-        Comment : String;
+        key Product : Association to Products;
+            Name    : String;
+            Rating  : Integer;
+            Comment : String;
     }
 
     entity SelProducts   as select from Products;
@@ -152,7 +153,6 @@ context Sales {
             Quantity
         };
 
-
     entity SelProducts3 as
         select from Materials.Products
         left join Materials.ProductReview
@@ -183,9 +183,9 @@ context Reports {
         select from productsrv.Materials.Products
         mixin {
             ToStockAvailibity : Association to productsrv.Materials.stockAvailability
-                                     on ToStockAvailibity.ID = $projection.StockAvailability;
-            toAverageRating    : Association to AverageRating
-                                     on toAverageRating.ProductID = ID;
+                                    on ToStockAvailibity.ID = $projection.StockAvailability;
+            toAverageRating   : Association to AverageRating
+                                    on toAverageRating.ProductID = ID;
         }
         into {
             *,

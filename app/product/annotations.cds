@@ -2,6 +2,14 @@ using CatalogService as service from '../../srv/catalogService';
 
 annotate service.Products with @(
 
+    UI.HeaderInfo     : {
+        TypeName      : 'Product',
+        TypeNamePlural: 'Products',
+        ImageUrl      : ImageURL,
+        Title         : {Value: ProductName},
+        Description   : {Value: description}
+    },
+
     UI.SelectionFields: [
         toCategory_ID,
         toCurrency_ID,
@@ -49,7 +57,12 @@ annotate service.Products with @(
             Label      : 'Stock Availability',
             Value      : StockAvailability,
             Criticality: StockAvailability
-        }
+        },
+        {
+            Label : 'Rating',
+            $Type : 'UI.DataFieldForAnnotation',
+            Target: '@UI.DataPoint#AverageRating'
+        },
     ]
 );
 
@@ -136,6 +149,11 @@ annotate service.Products with @(
                 $Type: 'UI.DataField',
                 Label: 'Stock Availability',
                 Value: StockAvailability
+            },
+            {
+                Label : 'Rating',
+                $Type : 'UI.DataFieldForAnnotation',
+                Target: '@UI.DataPoint#AverageRating'
             }
         ],
     },
@@ -269,3 +287,11 @@ annotate service.Supplier with @(Communication: {Contact: {
     ]
 
 }, });
+
+
+annotate service.Products with @(UI.DataPoint #AverageRating: {
+    Value        :  Rating,
+    Title        : 'Rating',
+    TargetValue  : 5,
+    Visualization: #Rating
+});

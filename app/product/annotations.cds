@@ -33,6 +33,11 @@ annotate service.Products with @(
             $Type: 'UI.DataField',
             Label: 'DiscontinuedDate',
             Value: DiscontinuedDate,
+        }, 
+        {
+            $Type: 'UI.DataField',
+            Label: 'Price',
+            Value: Price
         },
     ]
 );
@@ -118,9 +123,9 @@ annotate service.Products with @(
             },
             {
                 $Type: 'UI.DataField',
-                Label: 'StockAvailability',
+                Label: 'Stock Availability',
                 Value: StockAvailability,
-            },
+            }
         ],
     },
     UI.Facets                     : [{
@@ -184,18 +189,21 @@ annotate service.Products with {
         ValueList               : {
             $Type         : 'Common.ValueListType',
             CollectionPath: 'stockAvailability',
-            Parameters    : [
-                {
-                    $Type            : 'Common.ValueListParameterInOut',
-                    LocalDataProperty: StockAvailability,
-                    ValueListProperty: 'ID'
-                } 
-            ]
+            Parameters    : [{
+                $Type            : 'Common.ValueListParameterInOut',
+                LocalDataProperty: StockAvailability,
+                ValueListProperty: 'ID'
+            }]
         },
 
     });
 
 };
+
+annotate service.Products{
+    ImageURL @(UI.IsImageURL:true);
+};
+
 
 
 /**
@@ -221,9 +229,9 @@ annotate service.VH_Currencies {
     Text @(UI: {HiddenFilter: true});
 };
 
-annotate  service.stockAvailability{
-    ID @(Common : {  Text : {
-        $value: Description, 
-        ![@UI.TextArrangement] : #TextOnly  ,
+annotate service.stockAvailability {
+    ID @(Common: {Text: {
+        $value                : Description,
+        ![@UI.TextArrangement]: #TextOnly,
     }});
 };

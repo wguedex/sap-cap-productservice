@@ -33,12 +33,18 @@ annotate service.Products with @(
             $Type: 'UI.DataField',
             Label: 'DiscontinuedDate',
             Value: DiscontinuedDate,
-        }, 
+        },
         {
             $Type: 'UI.DataField',
             Label: 'Price',
             Value: Price
         },
+        {
+            $Type      : 'UI.DataField',
+            Label      : 'Stock Availability',
+            Value      : StockAvailability,
+            Criticality: StockAvailability
+        }
     ]
 );
 
@@ -124,7 +130,7 @@ annotate service.Products with @(
             {
                 $Type: 'UI.DataField',
                 Label: 'Stock Availability',
-                Value: StockAvailability,
+                Value: StockAvailability
             }
         ],
     },
@@ -200,11 +206,9 @@ annotate service.Products with {
 
 };
 
-annotate service.Products{
-    ImageURL @(UI.IsImageURL:true);
+annotate service.Products {
+    ImageURL @(UI.IsImageURL: true);
 };
-
-
 
 /**
  * Anotations for VH_Categories Entity

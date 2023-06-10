@@ -20,6 +20,11 @@ annotate service.Products with @(
             Value: description,
         },
         {
+            $Type : 'UI.DataFieldForAnnotation',
+            Label : 'Supplier',
+            Target: 'Supplier/@Communication.Contact'
+        },
+        {
             $Type: 'UI.DataField',
             Label: 'ImageURL',
             Value: ImageURL,
@@ -239,3 +244,28 @@ annotate service.stockAvailability {
         ![@UI.TextArrangement]: #TextOnly,
     }});
 };
+
+/**
+ * Annotations for supplier entity
+ */
+annotate service.Supplier with @(Communication: {Contact: {
+    $Type: 'Communication.ContactType',
+    fn   : Name,
+    role : 'Supplier - Role',
+    photo: 'sap-icon://supplier',
+    email: [{
+        type   : #work,
+        address: Email
+    }],
+    tel  : [
+        {
+            type: #work,
+            uri : Phone
+        },
+        {
+            type: #fax,
+            uri : Fax
+        }
+    ]
+
+}, });

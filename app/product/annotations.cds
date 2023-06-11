@@ -10,6 +10,13 @@ annotate service.Products with @(
         Description   : {Value: description}
     },
 
+    Capabilities : {
+        DeleteRestrictions : {
+            $Type : 'Capabilities.DeleteRestrictionsType',
+            Deletable: false
+        },
+    }, 
+
     UI.SelectionFields: [
         toCategory_ID,
         toCurrency_ID,
